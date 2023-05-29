@@ -35,7 +35,7 @@ build:
 .PHONY: deploy
 deploy:
 	@echo "Preparing commit"
-	echo 'google.com, pub-1982836548376953, DIRECT, f08c47fec0942fa0' > $(OUTPUTDIR)/adds.txt
+	echo 'google.com, pub-1982836548376953, DIRECT, f08c47fec0942fa0' > $(OUTPUTDIR)/ads.txt
 	git add .
 	git status 
 	git commit -m "Deploying via Makefile" 
