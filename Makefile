@@ -14,7 +14,7 @@ clean:
 git_update:
 	@echo "Updating Hugo git repository"
 	git pull
-	git submodule update --recursive
+	# git submodule update --recursive
 
 .PHONY: build
 build:
@@ -36,7 +36,7 @@ update_node_modules:
 .PHONY: deploy
 deploy:
 	@echo "Preparing commit"
-	git add . 
+	git add -A
 	git status 
 	git commit -m "Deploying via Makefile" 
 	git push -u origin $(git branch --show-current)
