@@ -13,7 +13,6 @@ mermaid: true
 tags: ["Threat Detection","Linux","Core Dumps"]
 categories: ["security"]
 ---
-<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1982836548376953" crossorigin="anonymous">< script> -->
 ## Core Dumps
 
 > A core dump is a file containing a process's address space (memory) when the process terminates unexpectedly. Core dumps may be produced on-demand (such as by a debugger), or automatically upon termination. Core dumps are triggered by the kernel in response to program crashes, and may be passed to a helper program (such as systemd-coredump(8)) for further processing. <sup>[1]</sup>
