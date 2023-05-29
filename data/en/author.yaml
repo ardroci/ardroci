@@ -1,5 +1,13 @@
-name: "4rdr0ci"
-nickname: "4rdr0ci"
+# some information about you
+name: "ardroci"
+nickname: "ardroci"
+# greeting message before your name. it will default to "Hi! I am" if not provided
+greeting: "Hi, I am"
 image: "images/author/john.png"
 contactInfo:
   github: 4rdr0ci
+# some summary about what you do
+summary:
+  - Threat Detection
+  - Threat Hunt
+  - Threat Emulation
