@@ -19,7 +19,7 @@ git_update:
 .PHONY: build
 build:
 	@echo "Generating static site content"
-	hugo --gc --minify
+	hugo --gc 
 
 # .PHONY: update_hugo_modules
 # update_hugo:

@@ -1,41 +1,462 @@
-<!doctype html><html lang=en><head><title>Detect Core Dumps</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="ie=edge"><link rel=stylesheet href=/application.cb6d89cbee1604d12ceaf00b565c4e621520c5d0d92e5c7176db5d4d007cad21.css integrity="sha256-y22Jy+4WBNEs6vALVlxOYhUgxdDZLlxxdttdTQB8rSE="><meta property="og:title" content="Detect Core Dumps"><meta property="og:description" content="Detect core dumps on a Linux environment"><meta property="og:type" content="article"><meta property="og:url" content="https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-05-28T19:47:08+01:00"><meta property="article:modified_time" content="2023-05-28T19:47:08+01:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Detect Core Dumps"><meta name=twitter:description content="Detect core dumps on a Linux environment"><meta name=description content="Detect core dumps on a Linux environment"><script async src="https://www.googletagmanager.com/gtag/js?id=G-HLJKT0SE6G"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-HLJKT0SE6G",{anonymize_ip:!1})}</script></head><body class="type-posts kind-page" data-spy=scroll data-target=#TableOfContents data-offset=80><div class="container-fluid bg-dimmed wrapper"><nav class="navbar navbar-expand-xl top-navbar final-navbar shadow"><div class=container><button class="navbar-toggler navbar-light" id=sidebar-toggler type=button>
-<span class=navbar-toggler-icon></span></button>
-<a class=navbar-brand href=/>4rdr0ci</a>
-<button class="navbar-toggler navbar-light" id=toc-toggler type=button>
-<span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse lang-selector" id=top-nav-items><ul class="navbar-nav ml-auto"><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href=# id=themeSelector role=button data-toggle=dropdown aria-haspopup=true aria-expanded=false><img id=navbar-theme-icon-svg src=/icons/moon-svgrepo-com.svg width=20 alt="Dark Theme"></a><div id=themeMenu class="dropdown-menu dropdown-menu-icons-only" aria-labelledby=themeSelector><a class="dropdown-item nav-link" href=# data-scheme=light><img class=menu-icon-center src=/icons/sun-svgrepo-com.svg width=20 alt="Light Theme"></a>
-<a class="dropdown-item nav-link" href=# data-scheme=dark><img class=menu-icon-center src=/icons/moon-svgrepo-com.svg width=20 alt="Dark Theme"></a>
-<a class="dropdown-item nav-link" href=# data-scheme=system><img class=menu-icon-center src=/icons/computer-svgrepo-com.svg width=20 alt="System Theme"></a></div></li></ul></div></div></nav><section class=sidebar-section id=sidebar-section><div class=sidebar-holder><div class=sidebar id=sidebar><form class=mx-auto method=get action=/search><input type=text name=keyword placeholder=Search data-search id=search-box></form><div class=sidebar-tree><ul class=tree id=tree><li id=list-heading><a href=/posts/ data-filter=all>Posts</a></li><div class=subtree><li><i class="fas fa-minus-circle"></i><a class=active href=/posts/detections/>Detection</a><ul class=active><li><i class="fas fa-minus-circle"></i><a class=active href=/posts/detections/linux/>Linux</a><ul class=active><li><a class=active href=/posts/detections/linux/detection-core-dumps/ title="Detect Core Dumps">Detect Core Dumps</a></li></ul></li></ul></li></div></ul></div></div></div></section><section class=content-section id=content-section><div class=content><div class="container p-0 read-area"><div class="hero-area col-sm-12" id=hero-area style=background-image:url(/posts/detections/linux/detection-core-dumps/password-with-hand-holding-tweezers-binary-code.jpg)></div><div class=page-content><div class="author-profile ml-auto align-self-lg-center"><img class=rounded-circle src=/images/author/john_hu7f9991f5b5d471ecdfc6cff3db1a9fe6_6397_120x120_fit_box_3.png alt="Author Image"><h5 class=author-name>ardroci</h5><p>Sunday, May 28, 2023</p></div><div class=title><h1>Detect Core Dumps</h1></div><div class=taxonomy-terms><ul style=padding-left:0><li class=rounded><a href=/tags/threat-detection/ class="btn, btn-sm">Threat Detection</a></li><li class=rounded><a href=/tags/linux/ class="btn, btn-sm">Linux</a></li><li class=rounded><a href=/tags/core-dumps/ class="btn, btn-sm">Core Dumps</a></li></ul></div><div class=post-content id=post-content><h2 id=core-dumps>Core Dumps</h2><blockquote><p>A core dump is a file containing a process&rsquo;s address space (memory) when the process terminates unexpectedly. Core dumps may be produced on-demand (such as by a debugger), or automatically upon termination. Core dumps are triggered by the kernel in response to program crashes, and may be passed to a helper program (such as systemd-coredump(8)) for further processing. <sup>[1]</sup></p></blockquote><p>As core dumps are a record of the process memory, a user or administrator that can force a core dump and has access to the resulting file and can potentially can potentially gain access to sensitive data, e.g secrets.</p><p>This threat can be eradicated if you disable core dumps. However, there are operational benefits from core dumps. Therefore you may be willing to favor the improved stability and troubleshooting it brings. If you decide to assume that risk and don&rsquo;t apply the mitigation strategy you should develop an approach to monitor this activity.</p><p>Instead of focusing on commands that can create a core dump consider the list of the signals which cause a process to dump core, e.g. SIGABRT. <sup>[2, 3]</sup> However, not all monitoring tools are fitted for this level of detail. As an alternative, you can consider /proc/[pid]/coredump_filter, which is used to &ldquo;control which memory segments are written to the core dump file in the event that a core dump is performed&rdquo;.<sup>[2]</sup> Given that /proc/[pid]/coredump_filter needs to be opened to understand what is going to be written to the coredump, e.g. openat(AT_FDCWD, &ldquo;/proc/1688715/coredump_filter&rdquo;, O_RDONLY|O_CLOEXEC) = 14, you can develop a file access monitoring strategy.</p><h2 id=mitigation>Mitigation</h2><ul><li>Disable core dumps <sup>[3, 4]</sup></li></ul><h2 id=detection>Detection</h2><h3 id=auditd>Auditd</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span><span style=color:#75715e># example of auditd rule for arm64 and /var/lib/systemd/coredump as the core dump default location</span>
-</span></span><span style=display:flex><span>-a always,exit -F arch<span style=color:#f92672>=</span>b64 -S openat  -S renameat -S unlinkat -S renameat2 -S linkat -F perm<span style=color:#f92672>=</span>wa -F dir<span style=color:#f92672>=</span>/var/lib/systemd/coredump -k CORE_DUMP
-</span></span></code></pre></div><h3 id=falco>Falco</h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>- <span style=color:#f92672>macro</span>: <span style=color:#ae81ff>open_read</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>condition</span>: <span style=color:#ae81ff>(evt.type in (open,openat,openat2) and evt.is_open_read=true and fd.typechar=&#39;f&#39; and fd.num&gt;=0)</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>- <span style=color:#f92672>rule</span>: <span style=color:#ae81ff>Core dump</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>desc</span>: &gt;<span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    An attempt to read core dump.</span>    
-</span></span><span style=display:flex><span>  <span style=color:#f92672>enabled</span>: <span style=color:#66d9ef>true</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>condition</span>: &gt;<span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    evt.category=file 
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    and open_read
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    and (fd.name pmatch &#34;/var/lib/systemd/coredump/&#34; or fd.name glob &#34;/proc/*/coredump_filter&#34;)</span>    
-</span></span><span style=display:flex><span>  <span style=color:#f92672>output</span>: |<span style=color:#e6db74>
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # Event information
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    evt_rawres=%evt.rawres, evt_type=%evt.type, evt_dir=%evt.dir, syscall_type=%syscall.type, evt_category=%evt.category, evt_args=%evt.args, 
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # Process information
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    proc_pid=%proc.pid, proc_exe=%proc.exe, proc_name=%proc.name, proc_args=%proc.args, proc_cmdline=%proc.cmdline, proc_exeline=%proc.exeline, proc_cwd=%proc.cwd, proc_nthreads=%proc.nthreads, proc_nchilds=%proc.nchilds, proc_ppid=%proc.ppid, proc_pname=%proc.pname, proc_pcmdline=%proc.pcmdline, proc_apid_2=%proc.apid[2], proc_aname_2=%proc.aname[2], proc_apid_3=%proc.apid[3], proc_aname_3=%proc.aname[3], proc_apid_4=%proc.apid[4], proc_aname_4=%proc.aname[4], proc_loginshellid=%proc.loginshellid, proc_duration=%proc.duration, proc_fdopencount=%proc.fdopencount, proc_vmsize=%proc.vmsize, proc_sid=%proc.sid, proc_sname=%proc.sname, proc_tty=%proc.tty, proc_exepath=%proc.exepath, proc_vpgid=%proc.vpgid, proc_is_exe_writable=%proc.is_exe_writable,
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # Threat information
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    #thread_cap_permitted=%thread.cap_permitted, thread_cap_inheritable=%thread.cap_inheritable, thread_cap_effective=%thread.cap_effective,
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # File descriptor information
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    fd_num=%fd.num, fd.type=%fd.type, fd_name=%fd.name, 
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    # User and group information
-</span></span></span><span style=display:flex><span><span style=color:#e6db74>    user_uid=%user.uid, user_name=%user.name, user_homedir=%user.homedir, user_shell=%user.shell, user_loginuid=%user.loginuid, user_loginname=%user.loginname, group_gid=%group.gid, group_name=%group.name</span>    
-</span></span><span style=display:flex><span>  <span style=color:#f92672>priority</span>: <span style=color:#ae81ff>WARNING</span>
-</span></span><span style=display:flex><span>  <span style=color:#f92672>tags</span>: [<span style=color:#ae81ff>filesystem, mitre_credential_access, mitre_discovery]</span>
-</span></span></code></pre></div><h2 id=validation>Validation</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>sleep <span style=color:#ae81ff>300</span> &amp;
-</span></span><span style=display:flex><span>PID<span style=color:#f92672>=</span>$!
-</span></span><span style=display:flex><span>kill -s SIGSEGV <span style=color:#e6db74>&#34;</span>$PID<span style=color:#e6db74>&#34;</span>
-</span></span></code></pre></div><h2 id=bed-time-reading>Bed Time Reading</h2><ol><li><a href=https://wiki.archlinux.org/title/Core_dump target=_blank rel=noopener>https://wiki.archlinux.org/title/Core_dump</a></li><li><a href=https://man7.org/linux/man-pages/man5/core.5.html target=_blank rel=noopener>https://man7.org/linux/man-pages/man5/core.5.html</a></li><li><a href=https://man7.org/linux/man-pages/man7/signal.7.html target=_blank rel=noopener>https://man7.org/linux/man-pages/man7/signal.7.html</a></li><li><a href=https://linux-audit.com/understand-and-configure-core-dumps-work-on-linux/#disable-core-dumps target=_blank rel=noopener>https://linux-audit.com/understand-and-configure-core-dumps-work-on-linux/#disable-core-dumps</a></li></ol></div><div class="row pl-3 pr-3"><div class="col-md-6 share-buttons"><strong>Share on:</strong>
-<a class="btn btn-sm twitter-btn" href="https://twitter.com/share?url=https%3a%2f%2fardroci.pages.dev%2fposts%2fdetections%2flinux%2fdetection-core-dumps%2f&text=Detect%20Core%20Dumps&via=4rdr0ci" target=_blank><i class="fab fa-twitter"></i></a>
-<a class="btn btn-sm reddit-btn" href="https://reddit.com/submit?url=https%3a%2f%2fardroci.pages.dev%2fposts%2fdetections%2flinux%2fdetection-core-dumps%2f&title=Detect%20Core%20Dumps" target=_blank><i class="fab fa-reddit"></i></a>
-<a class="btn btn-sm email-btn" href="mailto:?subject=Detect%20Core%20Dumps&body=https%3a%2f%2fardroci.pages.dev%2fposts%2fdetections%2flinux%2fdetection-core-dumps%2f" target=_blank><i class="fas fa-envelope-open-text"></i></a></div><div class="col-md-6 btn-improve-page"><a href=https://github.com/ardroci/ardroci.dev/edit/main/content/posts/detections/linux/detection-core-dumps/index.md title="Improve this page" target=_blank rel=noopener><i class="fas fa-code-branch"></i>
-Improve this page</a></div></div><hr><div class="row next-prev-navigator"></div><hr></div></div></div><a id=scroll-to-top class=btn><i class="fas fa-chevron-circle-up"></i></a></section><section class=toc-section id=toc-section><div class=toc-holder><h5 class="text-center pl-3">Table of Contents</h5><hr><div class=toc><nav id=TableOfContents><ul><li><ul><li><a href=#core-dumps>Core Dumps</a></li><li><a href=#mitigation>Mitigation</a></li><li><a href=#detection>Detection</a><ul><li><a href=#auditd>Auditd</a></li><li><a href=#falco>Falco</a></li></ul></li><li><a href=#validation>Validation</a></li><li><a href=#bed-time-reading>Bed Time Reading</a></li></ul></li></ul></nav></div></div></section></div><script src=/application.fed5505c7d1c555b2a3fef58d66ee0a15aac6ffc1a12ebc3b1349ea0050167b8.js integrity="sha256-/tVQXH0cVVsqP+9Y1m7goVqsb/waEuvDsTSeoAUBZ7g=" defer></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Detect Core Dumps</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+<link rel="stylesheet" href="/application.cb6d89cbee1604d12ceaf00b565c4e621520c5d0d92e5c7176db5d4d007cad21.css" integrity="sha256-y22Jy&#43;4WBNEs6vALVlxOYhUgxdDZLlxxdttdTQB8rSE=" />
+
+
+
+
+
+<meta property="og:title" content="Detect Core Dumps" />
+<meta property="og:description" content="Detect core dumps on a Linux environment" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-05-28T19:47:08+01:00" />
+<meta property="article:modified_time" content="2023-05-28T19:47:08+01:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Detect Core Dumps"/>
+<meta name="twitter:description" content="Detect core dumps on a Linux environment"/>
+
+    
+    
+<meta name="description" content="Detect core dumps on a Linux environment" />
+
+
+    
+
+    
+        
+        
+        
+            
+            
+            
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HLJKT0SE6G"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-HLJKT0SE6G', { 'anonymize_ip': false });
+}
+</script>
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+        
+    
+
+
+
+
+</head>
+
+  <body class="type-posts kind-page" data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      4rdr0ci</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      
+        <li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle"  href="#" id="themeSelector" role="button"
+  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <img id="navbar-theme-icon-svg" src="/icons/moon-svgrepo-com.svg" width=20 alt="Dark Theme">
+</a>
+<div id="themeMenu" class="dropdown-menu dropdown-menu-icons-only" aria-labelledby="themeSelector">
+  <a class="dropdown-item nav-link" href="#" data-scheme="light">
+    <img class="menu-icon-center" src="/icons/sun-svgrepo-com.svg" width=20 alt="Light Theme">
+  </a>
+  <a class="dropdown-item nav-link" href="#" data-scheme="dark">
+    <img class="menu-icon-center" src="/icons/moon-svgrepo-com.svg" width=20 alt="Dark Theme">
+  </a>
+  <a class="dropdown-item nav-link" href="#" data-scheme="system">
+    <img class="menu-icon-center" src="/icons/computer-svgrepo-com.svg" width=20 alt="System Theme">
+  </a>
+</div>
+</li>
+
+      
+      </ul>
+    </div>
+  </div>
+  
+  
+  
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <form class="mx-auto" method="get" action="/search">
+          <input type="text" name="keyword" value="" placeholder="Search" data-search="" id="search-box" />
+        </form>
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="/posts/" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/detections/">Detection</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/detections/linux/">Linux</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/detections/linux/detection-core-dumps/" title="Detect Core Dumps">Detect Core Dumps</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(/posts/detections/linux/detection-core-dumps/password-with-hand-holding-tweezers-binary-code.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/author/john_hu7f9991f5b5d471ecdfc6cff3db1a9fe6_6397_120x120_fit_box_3.png' alt="Author Image">
+          <h5 class="author-name">ardroci</h5>
+          <p>Sunday, May 28, 2023</p>
+        </div>
+
+        <div class="title">
+          <h1>Detect Core Dumps</h1>
+        </div>
+        
+        <div class="taxonomy-terms">
+          <ul style="padding-left: 0;">
+            
+            
+            <li class="rounded"><a href="/tags/threat-detection/" class="btn, btn-sm">Threat Detection</a></li>
+            
+            
+            <li class="rounded"><a href="/tags/linux/" class="btn, btn-sm">Linux</a></li>
+            
+            
+            <li class="rounded"><a href="/tags/core-dumps/" class="btn, btn-sm">Core Dumps</a></li>
+            
+          </ul>
+        </div>
+        
+        <div class="post-content" id="post-content">
+          <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1982836548376953" crossorigin="anonymous">< script> -->
+<h2 id="core-dumps">Core Dumps</h2>
+<blockquote>
+<p>A core dump is a file containing a process&rsquo;s address space (memory) when the process terminates unexpectedly. Core dumps may be produced on-demand (such as by a debugger), or automatically upon termination. Core dumps are triggered by the kernel in response to program crashes, and may be passed to a helper program (such as systemd-coredump(8)) for further processing. <sup>[1]</sup></p>
+</blockquote>
+<p>As core dumps are a record of the process memory, a user or administrator that can force a core dump and has access to the resulting file and can potentially can potentially gain access to sensitive data, e.g secrets.</p>
+<p>This threat can be eradicated if you disable core dumps. However, there are operational benefits from core dumps. Therefore you may be willing to favor the improved stability and troubleshooting it brings. If you decide to assume that risk and don&rsquo;t apply the mitigation strategy you should develop an approach to monitor this activity.</p>
+<p>Instead of focusing on commands that can create a core dump consider the list of the signals which cause a process to dump core, e.g. SIGABRT. <sup>[2, 3]</sup> However, not all monitoring tools are fitted for this level of detail. As an alternative, you can consider /proc/[pid]/coredump_filter, which is used to &ldquo;control which memory segments are written to the core dump file in the event that a core dump is performed&rdquo;.<sup>[2]</sup> Given that /proc/[pid]/coredump_filter needs to be opened to understand what is going to be written to the coredump, e.g. openat(AT_FDCWD, &ldquo;/proc/1688715/coredump_filter&rdquo;, O_RDONLY|O_CLOEXEC) = 14, you can develop a file access monitoring strategy.</p>
+<h2 id="mitigation">Mitigation</h2>
+<ul>
+<li>Disable core dumps <sup>[3, 4]</sup></li>
+</ul>
+<h2 id="detection">Detection</h2>
+<h3 id="auditd">Auditd</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># example of auditd rule for arm64 and /var/lib/systemd/coredump as the core dump default location</span>
+</span></span><span style="display:flex;"><span>-a always,exit -F arch<span style="color:#f92672">=</span>b64 -S openat  -S renameat -S unlinkat -S renameat2 -S linkat -F perm<span style="color:#f92672">=</span>wa -F dir<span style="color:#f92672">=</span>/var/lib/systemd/coredump -k CORE_DUMP
+</span></span></code></pre></div><!-- ### Capsule8
+```bash
+Core dump:
+  policy: fileaccess
+  enabled: true
+  alertMessage: Core dump
+  comments: Identify whenever a core dump is created
+  priority: Medium
+  rules:
+    - match operation == "open" and filePath in $Core-dump-on-restricted-machine-filePath-list
+    - default ignore
+Core-dump-on-restricted-machine-filePath-list:
+  type: paths
+  list:
+  - "/var/lib/systemd/coredump/*"
+  - "/proc/*/coredump_filter"
+``` -->
+<h3 id="falco">Falco</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#f92672">macro</span>: <span style="color:#ae81ff">open_read</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">condition</span>: <span style="color:#ae81ff">(evt.type in (open,openat,openat2) and evt.is_open_read=true and fd.typechar=&#39;f&#39; and fd.num&gt;=0)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">rule</span>: <span style="color:#ae81ff">Core dump</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">desc</span>: &gt;<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    An attempt to read core dump.</span>    
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">condition</span>: &gt;<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    evt.category=file 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    and open_read
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    and (fd.name pmatch &#34;/var/lib/systemd/coredump/&#34; or fd.name glob &#34;/proc/*/coredump_filter&#34;)</span>    
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">output</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # Event information
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    evt_rawres=%evt.rawres, evt_type=%evt.type, evt_dir=%evt.dir, syscall_type=%syscall.type, evt_category=%evt.category, evt_args=%evt.args, 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # Process information
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    proc_pid=%proc.pid, proc_exe=%proc.exe, proc_name=%proc.name, proc_args=%proc.args, proc_cmdline=%proc.cmdline, proc_exeline=%proc.exeline, proc_cwd=%proc.cwd, proc_nthreads=%proc.nthreads, proc_nchilds=%proc.nchilds, proc_ppid=%proc.ppid, proc_pname=%proc.pname, proc_pcmdline=%proc.pcmdline, proc_apid_2=%proc.apid[2], proc_aname_2=%proc.aname[2], proc_apid_3=%proc.apid[3], proc_aname_3=%proc.aname[3], proc_apid_4=%proc.apid[4], proc_aname_4=%proc.aname[4], proc_loginshellid=%proc.loginshellid, proc_duration=%proc.duration, proc_fdopencount=%proc.fdopencount, proc_vmsize=%proc.vmsize, proc_sid=%proc.sid, proc_sname=%proc.sname, proc_tty=%proc.tty, proc_exepath=%proc.exepath, proc_vpgid=%proc.vpgid, proc_is_exe_writable=%proc.is_exe_writable,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # Threat information
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    #thread_cap_permitted=%thread.cap_permitted, thread_cap_inheritable=%thread.cap_inheritable, thread_cap_effective=%thread.cap_effective,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # File descriptor information
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    fd_num=%fd.num, fd.type=%fd.type, fd_name=%fd.name, 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # User and group information
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    user_uid=%user.uid, user_name=%user.name, user_homedir=%user.homedir, user_shell=%user.shell, user_loginuid=%user.loginuid, user_loginname=%user.loginname, group_gid=%group.gid, group_name=%group.name</span>    
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">priority</span>: <span style="color:#ae81ff">WARNING</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tags</span>: [<span style="color:#ae81ff">filesystem, mitre_credential_access, mitre_discovery]</span>
+</span></span></code></pre></div><h2 id="validation">Validation</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sleep <span style="color:#ae81ff">300</span> &amp;
+</span></span><span style="display:flex;"><span>PID<span style="color:#f92672">=</span>$!
+</span></span><span style="display:flex;"><span>kill -s SIGSEGV <span style="color:#e6db74">&#34;</span>$PID<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><h2 id="bed-time-reading">Bed Time Reading</h2>
+<ol>
+<li><a href="https://wiki.archlinux.org/title/Core_dump" target="_blank" rel="noopener">https://wiki.archlinux.org/title/Core_dump</a></li>
+<li><a href="https://man7.org/linux/man-pages/man5/core.5.html" target="_blank" rel="noopener">https://man7.org/linux/man-pages/man5/core.5.html</a></li>
+<li><a href="https://man7.org/linux/man-pages/man7/signal.7.html" target="_blank" rel="noopener">https://man7.org/linux/man-pages/man7/signal.7.html</a></li>
+<li><a href="https://linux-audit.com/understand-and-configure-core-dumps-work-on-linux/#disable-core-dumps" target="_blank" rel="noopener">https://linux-audit.com/understand-and-configure-core-dumps-work-on-linux/#disable-core-dumps</a></li>
+</ol>
+
+        </div>
+
+        
+        <div class="row pl-3 pr-3">
+        
+        <div class="col-md-6 share-buttons">
+        
+            <strong>Share on:</strong>
+            
+            
+                <a class="btn btn-sm twitter-btn" href="https://twitter.com/share?url=https%3a%2f%2fardroci.pages.dev%2fposts%2fdetections%2flinux%2fdetection-core-dumps%2f&text=Detect%20Core%20Dumps&via=4rdr0ci" target="_blank">
+                  <i class="fab fa-twitter"></i>
+                </a>
+            
+            
+                <a  class="btn btn-sm reddit-btn" href="https://reddit.com/submit?url=https%3a%2f%2fardroci.pages.dev%2fposts%2fdetections%2flinux%2fdetection-core-dumps%2f&title=Detect%20Core%20Dumps" target="_blank">
+                  <i class="fab fa-reddit"></i>
+                </a>
+            
+            
+            
+            
+            
+             
+            
+            
+                <a class="btn btn-sm email-btn" href="mailto:?subject=Detect%20Core%20Dumps&body=https%3a%2f%2fardroci.pages.dev%2fposts%2fdetections%2flinux%2fdetection-core-dumps%2f" target="_blank">
+                  <i class="fas fa-envelope-open-text"></i>
+                </a>
+            
+          
+          </div>
+
+        
+        
+          
+            
+          
+          <div class="col-md-6 btn-improve-page">
+             
+               <a href="https://github.com/ardroci/ardroci.dev/edit/main/content/posts/detections/linux/detection-core-dumps/index.md" title="Improve this page" target="_blank" rel="noopener">
+            
+                <i class="fas fa-code-branch"></i>
+                Improve this page
+              </a>
+          </div>
+        
+        </div>
+
+
+
+      
+      <hr />
+        
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+    
+  
+  
+
+
+<div class="row next-prev-navigator">
+  
+  
+</div>
+
+      <hr />
+
+      
+      
+
+      
+      
+
+      </div>
+    </div>
+  </div>
+  
+  <a id="scroll-to-top" class="btn"><i class="fas fa-chevron-circle-up"></i></a>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#core-dumps">Core Dumps</a></li>
+        <li><a href="#mitigation">Mitigation</a></li>
+        <li><a href="#detection">Detection</a>
+          <ul>
+            <li><a href="#auditd">Auditd</a></li>
+            <li><a href="#falco">Falco</a></li>
+          </ul>
+        </li>
+        <li><a href="#validation">Validation</a></li>
+        <li><a href="#bed-time-reading">Bed Time Reading</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="/application.fed5505c7d1c555b2a3fef58d66ee0a15aac6ffc1a12ebc3b1349ea0050167b8.js" integrity="sha256-/tVQXH0cVVsqP&#43;9Y1m7goVqsb/waEuvDsTSeoAUBZ7g=" defer></script>
+
+
+
+    
+     
+
+    
+</body>
+</html>

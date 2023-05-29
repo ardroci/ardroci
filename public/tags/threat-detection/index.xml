@@ -1,2 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Threat Detection on 4rdr0ci</title><link>https://ardroci.pages.dev/tags/threat-detection/</link><description>Recent content in Threat Detection on 4rdr0ci</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 28 May 2023 19:47:08 +0100</lastBuildDate><atom:link href="https://ardroci.pages.dev/tags/threat-detection/index.xml" rel="self" type="application/rss+xml"/><item><title>Detect Core Dumps</title><link>https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/</link><pubDate>Sun, 28 May 2023 19:47:08 +0100</pubDate><guid>https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/</guid><description>Core Dumps A core dump is a file containing a process&amp;rsquo;s address space (memory) when the process terminates unexpectedly. Core dumps may be produced on-demand (such as by a debugger), or automatically upon termination. Core dumps are triggered by the kernel in response to program crashes, and may be passed to a helper program (such as systemd-coredump(8)) for further processing. [1]
-As core dumps are a record of the process memory, a user or administrator that can force a core dump and has access to the resulting file and can potentially can potentially gain access to sensitive data, e.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Threat Detection on 4rdr0ci</title>
+    <link>https://ardroci.pages.dev/tags/threat-detection/</link>
+    <description>Recent content in Threat Detection on 4rdr0ci</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 May 2023 19:47:08 +0100</lastBuildDate><atom:link href="https://ardroci.pages.dev/tags/threat-detection/index.xml" rel="self" type="application/rss+xml" /><item>
+      <title>Detect Core Dumps</title>
+      <link>https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/</link>
+      <pubDate>Sun, 28 May 2023 19:47:08 +0100</pubDate>
+      
+      <guid>https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/</guid>
+      <description>Core Dumps A core dump is a file containing a process&amp;rsquo;s address space (memory) when the process terminates unexpectedly. Core dumps may be produced on-demand (such as by a debugger), or automatically upon termination. Core dumps are triggered by the kernel in response to program crashes, and may be passed to a helper program (such as systemd-coredump(8)) for further processing. [1]
+As core dumps are a record of the process memory, a user or administrator that can force a core dump and has access to the resulting file and can potentially can potentially gain access to sensitive data, e.</description>
+    </item>
+    
+    
+  </channel>
+</rss>
