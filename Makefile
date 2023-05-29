@@ -1,5 +1,5 @@
 SHELL:=/bin/bash
-BASEDIR=$(pwd)
+BASEDIR=$(CURDIR)
 OUTPUTDIR=public
 
 .PHONY: all
