@@ -1,4 +1,4 @@
-baseURL: https://4rdr0ci.io
+baseURL: https://ardroci.pages.dev/
 
 languageCode: en-us
 title: "4rdr0ci"
@@ -64,7 +64,7 @@ params:
     # favicon: /images/site/favicon.png
   
   # GitHub repo of your site
-  gitRepo: https://github.com/hugo-toha/hugo-toha.github.io
+  gitRepo: https://github.com/ardroci/ardroci.dev
   # Default branch of your Git repo
   gitBranch: rcoliveira
 
@@ -80,7 +80,7 @@ params:
       enable: true
       services:
         darkreader:
-          defaultColorScheme: system # options are 'system', 'dark', 'light'
+          defaultColorScheme: light # options are 'system', 'dark', 'light'
           fixes:
             invert: ['img[src$=".svg"]'] # inverts svg colors.
           theme:

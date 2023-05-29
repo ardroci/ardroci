@@ -1,2 +1,1 @@
-code for ardroci.dev blog
-
+code for ardroci.dev blog, using https://hugo-toha.github.io/ hugo template.
