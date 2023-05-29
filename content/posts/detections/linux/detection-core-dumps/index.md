@@ -1,10 +1,10 @@
 ---
-title: "Detect Core Dumps"
+title: "Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies"
 date: 2023-05-28T19:47:08+01:00
-description: Detect core dumps on a Linux environment
+description: Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies
 menu:
   sidebar:
-    name: Detect Core Dumps
+    name: Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies
     identifier: detect-core-dumps
     parent: linux
     weight: 10
@@ -13,45 +13,108 @@ mermaid: true
 tags: ["Threat Detection","Linux","Core Dumps"]
 categories: ["security"]
 ---
-## Core Dumps
+## Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies
 
-> A core dump is a file containing a process's address space (memory) when the process terminates unexpectedly. Core dumps may be produced on-demand (such as by a debugger), or automatically upon termination. Core dumps are triggered by the kernel in response to program crashes, and may be passed to a helper program (such as systemd-coredump(8)) for further processing. <sup>[1]</sup>
+A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes. It is a snapshot of the process's memory at the time of the crash, including the values of variables, registers, and other relevant data. When a program crashes or terminates abnormally due to an error, the operating system generates a core dump file to help in debugging and understanding the cause of the crash. This file contains valuable information that can be analyzed to diagnose the issue and fix the software or identify vulnerabilities.
 
-As core dumps are a record of the process memory, a user or administrator that can force a core dump and has access to the resulting file and can potentially can potentially gain access to sensitive data, e.g secrets.
+The core dump file is typically written to disk in a binary format but it can also be passed to a helper program (such as systemd-coredump(8)) for further processing. It contains the memory image of the crashed process and includes the program's code, stack frames, heap data, and other relevant information. By examining the core dump, developers and security professionals can gain insights into the state of the program at the time of the crash, helping them identify bugs, memory corruption issues, or security vulnerabilities.
 
-This threat can be eradicated if you disable core dumps. However, there are operational benefits from core dumps. Therefore you may be willing to favor the improved stability and troubleshooting it brings. If you decide to assume that risk and don't apply the mitigation strategy you should develop an approach to monitor this activity.
+To analyze a core dump file, various debugging tools and techniques can be used. These tools allow the examination of memory regions, registers, and stack frames to understand the flow of the program before it crashed. Debuggers like GDB (GNU Debugger) are commonly used to load the core dump file and perform detailed analysis, including inspecting variables, stepping through the code, and examining memory regions.
 
-Instead of focusing on commands that can create a core dump consider the list of the signals which cause a process to dump core, e.g. SIGABRT. <sup>[2, 3]</sup> However, not all monitoring tools are fitted for this level of detail. As an alternative, you can consider /proc/[pid]/coredump_filter, which is used to "control which memory segments are written to the core dump file in the event that a core dump is performed".<sup>[2]</sup> Given that /proc/[pid]/coredump_filter needs to be opened to understand what is going to be written to the coredump, e.g. openat(AT_FDCWD, "/proc/1688715/coredump_filter", O_RDONLY|O_CLOEXEC) = 14, you can develop a file access monitoring strategy.
+Security detection engineers may utilize core dumps as part of their investigations when analyzing incidents related to software crashes, exploits, or malicious activities. By examining the core dump, they can gather crucial information about the exploit or identify potential vulnerabilities that were exploited.
 
-## Mitigation
-* Disable core dumps <sup>[3, 4]</sup>
+It's worth noting that core dumps may contain sensitive information, such as passwords or encryption keys, depending on the state of the crashed process. Therefore, it's important to handle core dump files with care, restrict access to authorized personnel, and ensure they are securely stored to prevent unauthorized access to sensitive data.
 
-## Detection
+## Exploring Threat Actor Exploitation of Core Dumps
+
+In general, a core dump file itself does not pose a direct risk when it comes to threat actors using it maliciously. However, threat actors can potentially leverage the information contained within a core dump to aid in their attacks or exploit vulnerabilities. Here are a few scenarios where a threat actor might find value in a core dump:
+
+1. Information Disclosure: If the core dump file contains sensitive information, such as passwords, API keys, or cryptographic keys, a threat actor could analyze the dump to extract and exploit that data.
+
+2. Exploit Analysis: By examining a core dump, threat actors can gain insights into the inner workings of a crashed process. They can analyze the memory contents to identify vulnerabilities, memory corruption issues, or other weaknesses that could be exploited for their malicious activities.
+
+3. Reverse Engineering: A threat actor may use a core dump file to reverse engineer the software and understand its internal structure, algorithms, or proprietary protocols. This knowledge can be leveraged to craft more sophisticated attacks or develop exploits targeting specific vulnerabilities.
+
+4. Debugging Exploits: Core dumps provide detailed information about the state of a crashed process, including register values, stack traces, and memory contents. Threat actors can use this information to debug their exploits, fine-tune their attack techniques, or identify potential weaknesses to bypass security measures.
+
+To mitigate the risks associated with core dumps falling into the wrong hands, it's crucial to follow security best practices:
+
+1. Restrict Access: Limit access to core dump files to authorized personnel only. Implement strict access controls, permissions, and user authentication mechanisms to prevent unauthorized access.
+
+2. Secure Storage: Store core dump files in a secure location with proper encryption and access controls. Regularly monitor and audit access to these files to detect any suspicious activities.
+
+3. Sanitize Sensitive Data: Before sharing or analyzing core dump files, ensure sensitive information, such as passwords or encryption keys, is removed or obfuscated to prevent potential exploitation.
+
+4. Incident Response: If a core dump is part of a security incident, follow established incident response procedures. Analyze the core dump in a controlled environment and take appropriate actions to remediate vulnerabilities, patch software, or enhance security controls.
+
+By understanding the potential risks and taking appropriate security measures, organizations can help minimize the chances of threat actors exploiting core dump files for their malicious activities.
+
+## Unveiling Threat Actor Techniques: How They Force Core Dumps
+
+In the realm of cybersecurity, threat actors continuously devise new methods to achieve their malicious objectives. One technique they may employ is to force a core dump on a targeted system. A core dump is a snapshot of a process's memory at the time of its abnormal termination or crash. In this blog post, we will explore how threat actors can force core dumps and the potential risks associated with these actions.
+
+### Method 1: Exploiting Vulnerabilities
+One common approach utilized by threat actors involves exploiting software vulnerabilities. By identifying weaknesses in applications or the underlying operating system, they can trigger crashes or abnormal terminations intentionally. Vulnerabilities such as memory corruption, buffer overflow, or programming errors may serve as entry points. Through targeted exploitation, threat actors can force a process to crash, ultimately leading to the generation of a core dump.
+
+### Method 2: Resource Exhaustion
+Another technique is to exhaust system resources deliberately. By overwhelming a specific process or the system as a whole, threat actors can cause a crash scenario. Excessive consumption of memory, CPU, or other critical resources can result in an abnormal termination, triggering the creation of a core dump.
+
+### Method 3: Signal Injection
+Threat actors may manipulate vulnerable applications to generate specific signals, such as the `SIGSEGV` (segmentation fault) signal. This signal, when injected, causes a process to terminate abruptly. By exploiting the application's vulnerability to signal injection, threat actors can induce a crash scenario and prompt the system to generate a core dump.
+
+### Method 4: Debugging Tools Abuse
+If a threat actor gains unauthorized access to a system or compromises a privileged account, they may abuse debugging tools that allow core dump generation. Debuggers like GDB (GNU Debugger) or similar utilities can be misused to force crashes, intercept signals, or manipulate the target process's behavior. Through such manipulation, threat actors can trigger core dump creation.
+
+## Mitigation Strategies
+
+To effectively eradicate the threat associated with core dump files falling into the wrong hands, it is important to implement a combination of preventive measures and incident response practices. Here are some steps you can take:
+
+1. Access Controls: Implement strong access controls to restrict access to core dump files. Only authorized personnel should have permission to access and analyze these files. Regularly review and update access privileges to ensure they align with the principle of least privilege.
+
+2. Secure Storage and Encryption: Store core dump files in a secure location, such as a dedicated and protected directory or server, with proper encryption in place. Encryption adds an extra layer of protection, especially if the files are stored or transferred over untrusted networks.
+
+3. Data Sanitization: Before sharing or analyzing core dump files, ensure sensitive data within the dumps, such as passwords, keys, or personally identifiable information (PII), is removed or obfuscated. This can be achieved by scrubbing or sanitizing the dumps using appropriate tools or techniques.
+
+4. Incident Response Planning: Develop a comprehensive incident response plan specifically tailored to address incidents involving core dump files. This plan should outline the steps to be taken when a core dump is compromised or potentially accessed by unauthorized parties.
+
+5. Monitoring and Detection: Implement robust monitoring and detection mechanisms to identify any unauthorized access attempts or suspicious activities related to core dump files. This can include intrusion detection systems, log analysis, and security event monitoring.
+
+6. Regular Auditing and Review: Conduct regular audits and reviews of the access logs, storage locations, and security measures related to core dump files. This helps ensure that security controls are functioning as intended and any vulnerabilities or misconfigurations are promptly addressed.
+
+7. Employee Awareness and Training: Provide training and awareness programs to employees involved in handling core dump files. Educate them about the importance of securing and handling these files properly, including the risks associated with their exposure and the best practices to mitigate those risks.
+
+## Threat Detection Rules
+
+Rather than emphasizing commands that generate core dumps, shift your focus to the list of signals that trigger core dump creation in a process, e.g. SIGABRT. <sup>[2, 3]</sup>. However, not all monitoring tools are equipped to handle such intricate levels of detail.
+As an alternative, you can consider /proc/self/coredump_filter. The /proc/self/coredump_filter file is used in Linux systems to control the types of information that are included in a core dump file when a process crashes. It allows a process to specify which memory segments and resources should be included or excluded from the core dump. Before generating the core dump, the operating system checks the settings in the /proc/self/coredump_filter file to determine which memory segments and resources should be included in the core dump, e.g. openat(AT_FDCWD, "/proc/1688715/coredump_filter", O_RDONLY|O_CLOEXEC) = 14. The operating system reads the bitmask specified in the file to understand the process's preferences for the contents of the core dump. Based on the settings in the coredump_filter file, the operating system includes or excludes the corresponding memory segments and resources when creating the core dump file.
+
 ### Auditd
+To detect when a process reads its own core dump filter settings, we will leverage the power of auditd, the Linux auditing framework. Follow these steps to create the FIM rule:
+1. Open the audit rules configuration file using a text editor:
 ```bash
-# example of auditd rule for arm64 and /var/lib/systemd/coredump as the core dump default location
--a always,exit -F arch=b64 -S openat  -S renameat -S unlinkat -S renameat2 -S linkat -F perm=wa -F dir=/var/lib/systemd/coredump -k CORE_DUMP
+sudo nano /etc/audit/rules.d/audit.rules
+```
+2. Add the following line to the file:
+```bash
+-w /proc/self/coredump_filter -p r -k coredump_filter_read
+```
+This rule instructs auditd to monitor the file /proc/self/coredump_filter for read operations (-p r). When a process reads this file, an audit event will be generated and labeled with the key coredump_filter_read (-k coredump_filter_read).
+3. Save the file and exit the text editor.
+
+4. Restart the auditd service to apply the changes:
+```bash
+sudo service auditd restart
 ```
 
-<!-- ### Capsule8
-```bash
-Core dump:
-  policy: fileaccess
-  enabled: true
-  alertMessage: Core dump
-  comments: Identify whenever a core dump is created
-  priority: Medium
-  rules:
-    - match operation == "open" and filePath in $Core-dump-on-restricted-machine-filePath-list
-    - default ignore
-Core-dump-on-restricted-machine-filePath-list:
-  type: paths
-  list:
-  - "/var/lib/systemd/coredump/*"
-  - "/proc/*/coredump_filter"
-``` -->
-
 ### Falco
+Falco is a powerful open-source cloud-native runtime security tool that enables real-time threat detection and response. Here's an example of a Falco rule that can detect when a process reads the /proc/self/coredump_filter file:
+
+1. Open the falco rules configuration file using a text editor:
+```bash
+sudo nano /etc/falco/falco_rules.local.yaml
+```
+
+2. Add the following macro and rule to the file: 
 ```yaml
 - macro: open_read
   condition: (evt.type in (open,openat,openat2) and evt.is_open_read=true and fd.typechar='f' and fd.num>=0)
@@ -63,7 +126,7 @@ Core-dump-on-restricted-machine-filePath-list:
   condition: >
     evt.category=file 
     and open_read
-    and (fd.name pmatch "/var/lib/systemd/coredump/" or fd.name glob "/proc/*/coredump_filter")
+    and fd.name = "/proc/self/coredump_filter"
   output: |
     # Event information
     evt_rawres=%evt.rawres, evt_type=%evt.type, evt_dir=%evt.dir, syscall_type=%syscall.type, evt_category=%evt.category, evt_args=%evt.args, 
@@ -79,12 +142,30 @@ Core-dump-on-restricted-machine-filePath-list:
   tags: [filesystem, mitre_credential_access, mitre_discovery]
 ```
 
+3. Save the file and exit the text editor.
+
+4. Restart the falco service to apply the changes:
+```bash
+sudo service falco restart
+```
+
+Note: Make sure to configure Falco properly to ensure it captures the necessary system events and performs the desired detection. Adjust the rule according to your specific environment and monitoring needs.
+
 ## Validation
+Once you have implemented a FIM rule to detect process access to the /proc/self/coredump_filter file, it is essential to verify that the detection logic is functioning correctly. In this section, we will walk you through the steps to test the detection logic of the rule and ensure that it generates the expected output when a process reads the core dump filter file.
+
+### Step 1: Preparing the Environment
+Before testing the rule, ensure that you have Falco or auditd properly installed and running on your system. Refer to the Falco documentation for guidance on installation and configuration specific to your environment.
+
+### Step 2: Performing the Test
+To test the detection logic, execute the following commands:
 ```bash
 sleep 300 &
 PID=$!
 kill -s SIGSEGV "$PID"
 ```
+
+By following these steps, you can test the detection logic of your rule and validate its effectiveness in detecting access . Regularly testing and validating your security monitoring rules is crucial to ensure that your system remains protected against unauthorized or suspicious activities.
 
 ## Bed Time Reading
 1. https://wiki.archlinux.org/title/Core_dump
