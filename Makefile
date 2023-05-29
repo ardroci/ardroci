@@ -3,7 +3,7 @@ BASEDIR=$(pwd)
 OUTPUTDIR=public
 
 .PHONY: all
-all: clean git_update update_hugo_modules update_node_modules build deploy
+all: clean git_update build deploy
 
 .PHONY: clean
 clean:
@@ -21,17 +21,16 @@ build:
 	@echo "Generating static site content"
 	hugo --gc --minify
 
+# .PHONY: update_hugo_modules
+# update_hugo:
+# 	@echo "Update Hugo Modules"
+# 	hugo mod tidy
 
-.PHONY: update_hugo_modules
-update_hugo:
-	@echo "Update Hugo Modules"
-	hugo mod tidy
-
-.PHONY: update_node_modules
-update_node_modules:
-	@echo "Install node modules"
-	hugo mod npm pack
-	npm install
+# .PHONY: update_node_modules
+# update_node_modules:
+# 	@echo "Install node modules"
+# 	hugo mod npm pack
+# 	npm install
 
 .PHONY: deploy
 deploy:
