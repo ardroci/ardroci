@@ -285,14 +285,14 @@ if (!doNotTrack) {
 <p>By understanding the potential risks and taking appropriate security measures, organizations can help minimize the chances of threat actors exploiting core dump files for their malicious activities.</p>
 <h2 id="unveiling-threat-actor-techniques-how-they-force-core-dumps">Unveiling Threat Actor Techniques: How They Force Core Dumps</h2>
 <p>In the realm of cybersecurity, threat actors continuously devise new methods to achieve their malicious objectives. One technique they may employ is to force a core dump on a targeted system. A core dump is a snapshot of a process&rsquo;s memory at the time of its abnormal termination or crash. In this blog post, we will explore how threat actors can force core dumps and the potential risks associated with these actions.</p>
-<h3 id="method-1-exploiting-vulnerabilities">Method 1: Exploiting Vulnerabilities</h3>
-<p>One common approach utilized by threat actors involves exploiting software vulnerabilities. By identifying weaknesses in applications or the underlying operating system, they can trigger crashes or abnormal terminations intentionally. Vulnerabilities such as memory corruption, buffer overflow, or programming errors may serve as entry points. Through targeted exploitation, threat actors can force a process to crash, ultimately leading to the generation of a core dump.</p>
-<h3 id="method-2-resource-exhaustion">Method 2: Resource Exhaustion</h3>
-<p>Another technique is to exhaust system resources deliberately. By overwhelming a specific process or the system as a whole, threat actors can cause a crash scenario. Excessive consumption of memory, CPU, or other critical resources can result in an abnormal termination, triggering the creation of a core dump.</p>
-<h3 id="method-3-signal-injection">Method 3: Signal Injection</h3>
-<p>Threat actors may manipulate vulnerable applications to generate specific signals, such as the <code>SIGSEGV</code> (segmentation fault) signal. This signal, when injected, causes a process to terminate abruptly. By exploiting the application&rsquo;s vulnerability to signal injection, threat actors can induce a crash scenario and prompt the system to generate a core dump.</p>
-<h3 id="method-4-debugging-tools-abuse">Method 4: Debugging Tools Abuse</h3>
-<p>If a threat actor gains unauthorized access to a system or compromises a privileged account, they may abuse debugging tools that allow core dump generation. Debuggers like GDB (GNU Debugger) or similar utilities can be misused to force crashes, intercept signals, or manipulate the target process&rsquo;s behavior. Through such manipulation, threat actors can trigger core dump creation.</p>
+<p><strong>Method 1: Exploiting Vulnerabilities</strong>
+One common approach utilized by threat actors involves exploiting software vulnerabilities. By identifying weaknesses in applications or the underlying operating system, they can trigger crashes or abnormal terminations intentionally. Vulnerabilities such as memory corruption, buffer overflow, or programming errors may serve as entry points. Through targeted exploitation, threat actors can force a process to crash, ultimately leading to the generation of a core dump.</p>
+<p><strong>Method 2: Resource Exhaustion</strong>
+Another technique is to exhaust system resources deliberately. By overwhelming a specific process or the system as a whole, threat actors can cause a crash scenario. Excessive consumption of memory, CPU, or other critical resources can result in an abnormal termination, triggering the creation of a core dump.</p>
+<p><strong>Method 3: Signal Injection</strong>
+Threat actors may manipulate vulnerable applications to generate specific signals, such as the <code>SIGSEGV</code> (segmentation fault) signal. This signal, when injected, causes a process to terminate abruptly. By exploiting the application&rsquo;s vulnerability to signal injection, threat actors can induce a crash scenario and prompt the system to generate a core dump.</p>
+<p><strong>Method 4: Debugging Tools Abuse</strong>
+If a threat actor gains unauthorized access to a system or compromises a privileged account, they may abuse debugging tools that allow core dump generation. Debuggers like GDB (GNU Debugger) or similar utilities can be misused to force crashes, intercept signals, or manipulate the target process&rsquo;s behavior. Through such manipulation, threat actors can trigger core dump creation.</p>
 <h2 id="mitigation-strategies">Mitigation Strategies</h2>
 <p>To effectively eradicate the threat associated with core dump files falling into the wrong hands, it is important to implement a combination of preventive measures and incident response practices. Here are some steps you can take:</p>
 <ol>
@@ -379,13 +379,16 @@ As an alternative, you can consider /proc/self/coredump_filter. The /proc/self/c
 </li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo service falco restart
-</span></span></code></pre></div><p>Note: Make sure to configure Falco properly to ensure it captures the necessary system events and performs the desired detection. Adjust the rule according to your specific environment and monitoring needs.</p>
+</span></span></code></pre></div><blockquote>
+<p><strong>Note</strong>
+Make sure to configure Falco properly to ensure it captures the necessary system events and performs the desired detection. Adjust the rule according to your specific environment and monitoring needs.</p>
+</blockquote>
 <h2 id="validation">Validation</h2>
 <p>Once you have implemented a FIM rule to detect process access to the /proc/self/coredump_filter file, it is essential to verify that the detection logic is functioning correctly. In this section, we will walk you through the steps to test the detection logic of the rule and ensure that it generates the expected output when a process reads the core dump filter file.</p>
-<h3 id="step-1-preparing-the-environment">Step 1: Preparing the Environment</h3>
-<p>Before testing the rule, ensure that you have Falco or auditd properly installed and running on your system. Refer to the Falco documentation for guidance on installation and configuration specific to your environment.</p>
-<h3 id="step-2-performing-the-test">Step 2: Performing the Test</h3>
-<p>To test the detection logic, execute the following commands:</p>
+<p><strong>Step 1: Preparing the Environment</strong>
+Before testing the rule, ensure that you have Falco or auditd properly installed and running on your system. Refer to the Falco documentation for guidance on installation and configuration specific to your environment.</p>
+<p><strong>Step 2: Performing the Test</strong>
+To test the detection logic, execute the following commands:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sleep <span style="color:#ae81ff">300</span> &amp;
 </span></span><span style="display:flex;"><span>PID<span style="color:#f92672">=</span>$!
 </span></span><span style="display:flex;"><span>kill -s SIGSEGV <span style="color:#e6db74">&#34;</span>$PID<span style="color:#e6db74">&#34;</span>
@@ -518,14 +521,7 @@ As an alternative, you can consider /proc/self/coredump_filter. The /proc/self/c
       <ul>
         <li><a href="#unveiling-the-secrets-of-linux-core-dumps">Unveiling the Secrets of Linux Core Dumps</a></li>
         <li><a href="#exploring-threat-actor-exploitation-of-core-dumps">Exploring Threat Actor Exploitation of Core Dumps</a></li>
-        <li><a href="#unveiling-threat-actor-techniques-how-they-force-core-dumps">Unveiling Threat Actor Techniques: How They Force Core Dumps</a>
-          <ul>
-            <li><a href="#method-1-exploiting-vulnerabilities">Method 1: Exploiting Vulnerabilities</a></li>
-            <li><a href="#method-2-resource-exhaustion">Method 2: Resource Exhaustion</a></li>
-            <li><a href="#method-3-signal-injection">Method 3: Signal Injection</a></li>
-            <li><a href="#method-4-debugging-tools-abuse">Method 4: Debugging Tools Abuse</a></li>
-          </ul>
-        </li>
+        <li><a href="#unveiling-threat-actor-techniques-how-they-force-core-dumps">Unveiling Threat Actor Techniques: How They Force Core Dumps</a></li>
         <li><a href="#mitigation-strategies">Mitigation Strategies</a></li>
         <li><a href="#threat-detection-rules">Threat Detection Rules</a>
           <ul>
@@ -533,12 +529,7 @@ As an alternative, you can consider /proc/self/coredump_filter. The /proc/self/c
             <li><a href="#falco">Falco</a></li>
           </ul>
         </li>
-        <li><a href="#validation">Validation</a>
-          <ul>
-            <li><a href="#step-1-preparing-the-environment">Step 1: Preparing the Environment</a></li>
-            <li><a href="#step-2-performing-the-test">Step 2: Performing the Test</a></li>
-          </ul>
-        </li>
+        <li><a href="#validation">Validation</a></li>
         <li><a href="#bed-time-reading">Bed Time Reading</a></li>
       </ul>
     </li>
