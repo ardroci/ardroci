@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Core Dumps on 4rdr0ci</title>
+    <link>https://ardroci.pages.dev/tags/core-dumps/</link>
+    <description>Recent content in Core Dumps on 4rdr0ci</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 28 May 2023 19:47:08 +0100</lastBuildDate><atom:link href="https://ardroci.pages.dev/tags/core-dumps/index.xml" rel="self" type="application/rss+xml" /><item>
+      <title>Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies</title>
+      <link>https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/</link>
+      <pubDate>Sun, 28 May 2023 19:47:08 +0100</pubDate>
+      
+      <guid>https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/</guid>
+      <description>Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes. It is a snapshot of the process&amp;rsquo;s memory at the time of the crash, including the values of variables, registers, and other relevant data.</description>
+    </item>
+    
+    
+  </channel>
+</rss>

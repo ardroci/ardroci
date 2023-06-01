@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Linux kernel stack trace</title>
+    <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+<link rel="stylesheet" href="/application.cb6d89cbee1604d12ceaf00b565c4e621520c5d0d92e5c7176db5d4d007cad21.css" integrity="sha256-y22Jy&#43;4WBNEs6vALVlxOYhUgxdDZLlxxdttdTQB8rSE=" />
+
+
+
+
+
+<meta property="og:title" content="Linux kernel stack trace" />
+<meta property="og:description" content="How can we use the Linux kernel stack trace for detection rules" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ardroci.pages.dev/posts/detections/linux/kernel-stack/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-05-28T19:47:08+01:00" />
+<meta property="article:modified_time" content="2023-05-28T19:47:08+01:00" />
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux kernel stack trace"/>
+<meta name="twitter:description" content="How can we use the Linux kernel stack trace for detection rules"/>
+
+    
+    
+<meta name="description" content="How can we use the Linux kernel stack trace for detection rules" />
+
+
+    
+
+    
+        
+        
+        
+            
+            
+            
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HLJKT0SE6G"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-HLJKT0SE6G', { 'anonymize_ip': false });
+}
+</script>
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+        
+    
+
+
+
+
+</head>
+
+  <body class="type-posts kind-page" data-spy="scroll" data-target="#TableOfContents" data-offset="80">
+    <div class="container-fluid bg-dimmed wrapper">
+      
+      
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-xl top-navbar final-navbar shadow">
+  <div class="container">
+      <button class="navbar-toggler navbar-light" id="sidebar-toggler" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+      4rdr0ci</a>
+    <button class="navbar-toggler navbar-light" id="toc-toggler" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse lang-selector" id="top-nav-items">
+      <ul class="navbar-nav ml-auto">
+      
+      
+        <li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle"  href="#" id="themeSelector" role="button"
+  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <img id="navbar-theme-icon-svg" src="/icons/moon-svgrepo-com.svg" width=20 alt="Dark Theme">
+</a>
+<div id="themeMenu" class="dropdown-menu dropdown-menu-icons-only" aria-labelledby="themeSelector">
+  <a class="dropdown-item nav-link" href="#" data-scheme="light">
+    <img class="menu-icon-center" src="/icons/sun-svgrepo-com.svg" width=20 alt="Light Theme">
+  </a>
+  <a class="dropdown-item nav-link" href="#" data-scheme="dark">
+    <img class="menu-icon-center" src="/icons/moon-svgrepo-com.svg" width=20 alt="Dark Theme">
+  </a>
+  <a class="dropdown-item nav-link" href="#" data-scheme="system">
+    <img class="menu-icon-center" src="/icons/computer-svgrepo-com.svg" width=20 alt="System Theme">
+  </a>
+</div>
+</li>
+
+      
+      </ul>
+    </div>
+  </div>
+  
+  
+  
+</nav>
+
+
+
+      
+      
+  <section class="sidebar-section" id="sidebar-section">
+    <div class="sidebar-holder">
+      <div class="sidebar" id="sidebar">
+        <form class="mx-auto" method="get" action="/search">
+          <input type="text" name="keyword" value="" placeholder="Search" data-search="" id="search-box" />
+        </form>
+        <div class="sidebar-tree">
+          <ul class="tree" id="tree">
+            <li id="list-heading"><a href="/posts/" data-filter="all">Posts</a></li>
+            <div class="subtree">
+                
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/detections/">Detection</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li>
+      <i class="fas fa-minus-circle"></i><a class="active" href="/posts/detections/linux/">Linux</a>
+      
+      <ul class="active">
+        
+  
+  
+  
+  
+    
+    
+  
+  
+    
+    <li><a class="active" href="/posts/detections/linux/kernel-stack/" title="Linux kernel stack trace">Linux kernel stack trace</a></li>
+  
+
+  
+  
+  
+  
+  
+    
+    <li><a class="" href="/posts/detections/linux/detection-core-dumps/" title="Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies">Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies</a></li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+      </ul>
+    </li>
+  
+
+
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+      
+      
+<section class="content-section" id="content-section">
+  <div class="content">
+    <div class="container p-0 read-area">
+      
+      <div class="hero-area col-sm-12" id="hero-area" style='background-image: url(/images/default-hero.jpg);'>
+      </div>
+
+      
+      <div class="page-content">
+        <div class="author-profile ml-auto align-self-lg-center">
+          <img class="rounded-circle" src='/images/author/john_hu7f9991f5b5d471ecdfc6cff3db1a9fe6_6397_120x120_fit_box_3.png' alt="Author Image">
+          <h5 class="author-name">4rdr0ci</h5>
+          <p>Sunday, May 28, 2023</p>
+        </div>
+
+        <div class="title">
+          <h1>Linux kernel stack trace</h1>
+        </div>
+        
+        <div class="taxonomy-terms">
+          <ul style="padding-left: 0;">
+            
+            
+            <li class="rounded"><a href="/tags/threat-detection/" class="btn, btn-sm">Threat Detection</a></li>
+            
+            
+            <li class="rounded"><a href="/tags/linux/" class="btn, btn-sm">Linux</a></li>
+            
+            
+            <li class="rounded"><a href="/tags/kernel/" class="btn, btn-sm">Kernel</a></li>
+            
+            
+            <li class="rounded"><a href="/tags/stack-trace/" class="btn, btn-sm">Stack trace</a></li>
+            
+          </ul>
+        </div>
+        
+        <div class="post-content" id="post-content">
+          <h2 id="what-is-a-kernel-stack-call">What is a kernel stack call?</h2>
+<p>The Linux kernel stack call, also known as the kernel stack trace, provides information about the sequence of function calls and their associated memory addresses that are currently executing in the kernel. It helps in understanding the execution flow and context within the kernel when certain events occur. Here is the information typically included in a Linux kernel stack call:</p>
+<ol>
+<li>
+<p>Memory Addresses: The kernel stack call includes memory addresses, usually in hexadecimal format, representing the locations in memory where each function call resides. These addresses help identify the specific functions that are part of the call stack.</p>
+</li>
+<li>
+<p>Function Names: In addition to memory addresses, the kernel stack call often includes the names of the functions involved in the call stack. These function names provide a more human-readable representation of the stack trace and help identify the specific functions involved in the execution flow.</p>
+</li>
+<li>
+<p>Stack Frame Information: Each function call in the stack trace is associated with a stack frame, which includes information such as the function&rsquo;s return address, input parameters, and local variables. The stack frame information helps reconstruct the execution context of each function in the call stack.</p>
+</li>
+<li>
+<p>Execution Order: The kernel stack call presents the sequence of function calls in the order they were executed, from the top of the call stack (most recent) to the bottom (earlier function calls). This order allows understanding the flow of execution and the path taken through the kernel code.</p>
+</li>
+<li>
+<p>Nested Function Calls: The kernel stack call captures nested function calls, representing the hierarchy of function invocations. This information helps understand the relationships between different functions and the calling patterns within the kernel.</p>
+</li>
+<li>
+<p>Context Switches: The kernel stack call may also include information about context switches between different processes or threads. These switches can provide insights into the scheduling behavior of the kernel and the transition points between different execution contexts.</p>
+</li>
+</ol>
+<p>The Linux kernel stack call is a valuable source of information for debugging, performance analysis, and security investigations. It allows understanding the execution flow, identifying potential bottlenecks or issues, and gaining insights into the behavior of the kernel during specific events or system operations.</p>
+<h2 id="how-can-i-use-the-kernel-stack-call-in-a-detection-rule">How can I use the kernel stack call in a detection rule?</h2>
+<p>When developing a detection rule, you can utilize the kernel stack call as a valuable source of information to identify suspicious or malicious activity. The kernel stack call represents the sequence of function calls and their associated memory addresses currently executing in the kernel.</p>
+<p>To use the kernel stack call in a detection rule, you can follow these steps:</p>
+<ol>
+<li>
+<p>Understand the Kernel Stack Call: Familiarize yourself with the structure and format of the kernel stack call in the operating system you are working with. Different operating systems may have varying mechanisms for accessing the kernel stack call.</p>
+</li>
+<li>
+<p>Determine Relevant Function Calls: Identify specific function calls or sequences of function calls that are indicative of the activity you want to detect. This could include known patterns associated with malware, privilege escalation, or other suspicious behaviors.</p>
+</li>
+<li>
+<p>Leverage System Utilities or APIs: Use system utilities or APIs provided by the operating system to retrieve the kernel stack call information. This may involve accessing specific kernel data structures or using system calls specifically designed for this purpose.</p>
+</li>
+<li>
+<p>Develop Detection Rules: Utilize the information obtained from the kernel stack call to develop detection rules. This could involve pattern matching, anomaly detection, or correlation with other events or indicators. Your detection rules should trigger alerts or initiate actions when the specified conditions related to the kernel stack call are met.</p>
+</li>
+<li>
+<p>Test and Refine: Test your detection rules in a controlled environment to ensure they are accurately identifying the intended activity. Continuously refine your rules based on feedback and real-world observations.</p>
+</li>
+<li>
+<p>Monitor and Alert: Deploy your detection rules in your monitoring system to continuously monitor for the specified kernel stack call patterns. When a match is detected, generate alerts or notifications to initiate further investigation and response.</p>
+</li>
+</ol>
+<p>Remember, working with the kernel stack call requires a deep understanding of the operating system&rsquo;s internals, and modifying or accessing the kernel stack directly can be complex and potentially risky. Ensure you have the necessary expertise and consider the implications of interacting with critical system components before implementing detection rules based on the kernel stack call.</p>
+<h1 id="how-can-i-collect-the-process-stack-call-when-a-detection-rule-fires">how can I collect the process stack call when a detection rule fires?</h1>
+<p>Collecting the process stack call when a detection rule fires can be a valuable step in investigating and understanding the context of the detected activity. To collect the process stack call, you can follow these general steps:</p>
+<ol>
+<li>
+<p>Trigger Event: Set up your detection rule to generate an event or trigger an action when the rule conditions are met. This could be an alert, log entry, or any other mechanism that signals the detection.</p>
+</li>
+<li>
+<p>Identify Process Information: When the detection rule fires, obtain the necessary process information, such as the process ID (PID) or process name, associated with the triggered event. This information helps identify the specific process for which you want to collect the stack call.</p>
+</li>
+<li>
+<p>Select Stack Trace Collection Method: Determine the appropriate method to collect the process stack call based on the operating system and tools available. Here are two common approaches:</p>
+<p>a. Manual Inspection: If you have direct access to the system, you can attach a debugger to the process identified in step 2 and manually inspect the stack trace. Tools like GDB (GNU Debugger) on Linux or WinDbg on Windows allow you to interactively examine the stack frames and function calls.</p>
+<p>b. Automated Tooling: Utilize automated tools or APIs provided by the operating system or third-party libraries to collect the process stack trace programmatically. These tools often provide APIs or functions to capture the stack trace information, which can be integrated into your detection system or scripts.</p>
+</li>
+<li>
+<p>Collect Stack Trace: Implement the selected method to collect the stack trace for the identified process. This involves retrieving the memory addresses and function call information from the process&rsquo;s stack frames.</p>
+</li>
+<li>
+<p>Store or Log the Stack Trace: Store the collected stack trace information in a format suitable for analysis and investigation. This could be a log entry, a separate file, or integration with a central logging system for further analysis.</p>
+</li>
+<li>
+<p>Correlate and Analyze: Correlate the collected stack trace with the triggering event and any other relevant data. Analyze the stack trace to understand the execution flow, identify suspicious or malicious functions, or gain insights into the behavior of the process.</p>
+</li>
+</ol>
+<p>It&rsquo;s worth noting that collecting the process stack call often requires elevated privileges and an understanding of debugging techniques. It&rsquo;s important to ensure that you have the necessary permissions and expertise to interact with critical system components before attempting to collect stack traces.</p>
+<h2 id="how-can-i-collect-a-kernel-stack-trace-in-a-linux-machine">how can I collect a kernel stack trace in a Linux machine?</h2>
+<p>In Linux, there are several methods to collect a kernel stack trace. Here are a few common approaches:</p>
+<ol>
+<li>
+<p>Kprobes and SystemTap:</p>
+<ul>
+<li>Kprobes allows you to dynamically instrument the kernel code and collect stack traces at specific breakpoints or events.</li>
+<li>SystemTap is a scripting language that utilizes Kprobes to collect data from the kernel, including stack traces.</li>
+</ul>
+</li>
+<li>
+<p>Ftrace:</p>
+<ul>
+<li>Ftrace is a built-in Linux kernel framework for tracing and debugging.</li>
+<li>You can enable function tracing with stack traces to collect kernel stack traces.</li>
+<li>Use the <code>trace-cmd</code> command-line tool to enable and capture the stack traces.</li>
+</ul>
+</li>
+<li>
+<p>Crash Dumps:</p>
+<ul>
+<li>If your Linux system encounters a kernel panic or crash, it generates a crash dump or core dump.</li>
+<li>Analyzing the crash dump with tools like <code>crash</code> or <code>gdb</code> can provide stack trace information at the time of the crash.</li>
+</ul>
+</li>
+<li>
+<p>Kernel Debuggers:</p>
+<ul>
+<li>Tools like <code>gdb</code> and <code>kgdb</code> allow you to attach a debugger to a running kernel or a kernel that&rsquo;s stopped due to a panic or crash.</li>
+<li>Once attached, you can collect stack traces and inspect the state of the kernel.</li>
+</ul>
+</li>
+<li>
+<p>Profiling Tools:</p>
+<ul>
+<li>Profiling tools such as <code>perf</code> or <code>SystemTap</code> can capture stack traces as part of their performance analysis capabilities.</li>
+<li>These tools can help identify hotspots and bottlenecks in the kernel code by collecting stack traces during profiling.</li>
+</ul>
+</li>
+</ol>
+<p>It&rsquo;s important to note that collecting kernel stack traces often requires administrative privileges and a good understanding of the kernel&rsquo;s internals. Care should be taken when modifying or interacting with the kernel to avoid any unintended consequences. Additionally, the specific tools and methods available may vary depending on the Linux distribution and kernel version you are using.</p>
+<h2 id="example">Example</h2>
+<p>Certainly! Here&rsquo;s an example of a Linux kernel stack trace that includes input parameters and local variables:</p>
+<pre tabindex="0"><code>[&lt;ffffffff8107a0ba&gt;] do_sys_open+0x13a/0x1e0
+[&lt;ffffffff8107a1af&gt;] __x64_sys_openat+0x5f/0x90
+[&lt;ffffffff8107a1fb&gt;] do_syscall_64+0x4b/0xc0
+[&lt;ffffffff8180809b&gt;] entry_SYSCALL_64_after_hwframe+0x44/0xa9
+</code></pre><p>Let&rsquo;s break it down:</p>
+<ol>
+<li>
+<p>The first entry (<code>do_sys_open+0x13a/0x1e0</code>) refers to the <code>do_sys_open</code> function at memory address <code>0xffffffff8107a0ba</code>. The offset <code>+0x13a/0x1e0</code> indicates the relative position within the function.</p>
+</li>
+<li>
+<p>The second entry (<code>__x64_sys_openat+0x5f/0x90</code>) points to the <code>__x64_sys_openat</code> function at <code>0xffffffff8107a1af</code>. The offset <code>+0x5f/0x90</code> provides the relative position.</p>
+</li>
+<li>
+<p>The third entry (<code>do_syscall_64+0x4b/0xc0</code>) corresponds to the <code>do_syscall_64</code> function at <code>0xffffffff8107a1fb</code>. The offset <code>+0x4b/0xc0</code> indicates the relative position within the function.</p>
+</li>
+<li>
+<p>The fourth entry (<code>entry_SYSCALL_64_after_hwframe+0x44/0xa9</code>) represents the <code>entry_SYSCALL_64_after_hwframe</code> function at <code>0xffffffff8180809b</code>. The offset <code>+0x44/0xa9</code> provides the relative position.</p>
+</li>
+</ol>
+<p>Please note that this is a simplified example, and the stack trace content can vary depending on the specific context and functions involved. In a real-world scenario, you would typically see input parameters and local variables along with their respective values listed within each function call in the stack trace, providing more detailed information about the function&rsquo;s execution.</p>
+<h2 id="can-i-get-a-kernel-stack-trace-after-the-process-has-terminated">can I get a kernel stack trace after the process has terminated?</h2>
+<p>No, it is not possible to obtain a kernel stack trace after a process has terminated. When a process exits, its kernel stack is deallocated and no longer accessible. Therefore, you cannot retrieve the kernel stack trace associated with a terminated process.</p>
+<p>The kernel stack trace contains information about the function calls and execution flow of a process within the kernel. It is maintained while the process is active and its kernel thread is executing. Once the process terminates, the kernel stack associated with that process is cleaned up and cannot be accessed anymore.</p>
+<p>To collect a kernel stack trace, you need to capture it while the process is still running or at a specific breakpoint or event during the process&rsquo;s execution. Once the process has terminated, the kernel stack trace of that process is no longer available for retrieval.</p>
+<p>If you need to investigate issues related to a terminated process, you can analyze any available logs, core dumps, or other diagnostic information generated during the process&rsquo;s execution. These resources may provide insights into the behavior of the process and help in troubleshooting the cause of the termination.</p>
+
+        </div>
+
+        
+        <div class="row pl-3 pr-3">
+        
+        <div class="col-md-6 share-buttons">
+        
+            <strong>Share on:</strong>
+            
+            
+                <a class="btn btn-sm twitter-btn" href="https://twitter.com/share?url=https%3a%2f%2fardroci.pages.dev%2fposts%2fdetections%2flinux%2fkernel-stack%2f&text=Linux%20kernel%20stack%20trace&via=4rdr0ci" target="_blank">
+                  <i class="fab fa-twitter"></i>
+                </a>
+            
+            
+                <a  class="btn btn-sm reddit-btn" href="https://reddit.com/submit?url=https%3a%2f%2fardroci.pages.dev%2fposts%2fdetections%2flinux%2fkernel-stack%2f&title=Linux%20kernel%20stack%20trace" target="_blank">
+                  <i class="fab fa-reddit"></i>
+                </a>
+            
+            
+            
+            
+            
+             
+            
+            
+                <a class="btn btn-sm email-btn" href="mailto:?subject=Linux%20kernel%20stack%20trace&body=https%3a%2f%2fardroci.pages.dev%2fposts%2fdetections%2flinux%2fkernel-stack%2f" target="_blank">
+                  <i class="fas fa-envelope-open-text"></i>
+                </a>
+            
+          
+          </div>
+
+        
+        
+          
+            
+          
+          <div class="col-md-6 btn-improve-page">
+             
+               <a href="https://github.com/ardroci/ardroci.dev/edit/main/content/posts/detections/linux/kernel-stack/index.md" title="Improve this page" target="_blank" rel="noopener">
+            
+                <i class="fas fa-code-branch"></i>
+                Improve this page
+              </a>
+          </div>
+        
+        </div>
+
+
+
+      
+      <hr />
+        
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+    
+    
+  
+  
+
+  
+  
+
+
+<div class="row next-prev-navigator">
+  
+  
+      
+      
+      <div class="col-md-12 next-article">
+        <a href="/posts/detections/linux/detection-core-dumps/" title="Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies" class="btn btn-outline-info">
+          <div>Next <i class="fas fa-chevron-circle-right"></i></div>
+          <div class="next-prev-text">Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies</div>
+        </a>
+      </div>
+    
+</div>
+
+      <hr />
+
+      
+      
+
+      
+      
+
+      </div>
+    </div>
+  </div>
+  
+  <a id="scroll-to-top" class="btn"><i class="fas fa-chevron-circle-up"></i></a>
+  
+</section>
+
+
+      
+      
+  <section class="toc-section" id="toc-section">
+    
+    <div class="toc-holder">
+      <h5 class="text-center pl-3">Table of Contents</h5>
+      <hr>
+      <div class="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#what-is-a-kernel-stack-call">What is a kernel stack call?</a></li>
+        <li><a href="#how-can-i-use-the-kernel-stack-call-in-a-detection-rule">How can I use the kernel stack call in a detection rule?</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-can-i-collect-the-process-stack-call-when-a-detection-rule-fires">how can I collect the process stack call when a detection rule fires?</a>
+      <ul>
+        <li><a href="#how-can-i-collect-a-kernel-stack-trace-in-a-linux-machine">how can I collect a kernel stack trace in a Linux machine?</a></li>
+        <li><a href="#example">Example</a></li>
+        <li><a href="#can-i-get-a-kernel-stack-trace-after-the-process-has-terminated">can I get a kernel stack trace after the process has terminated?</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+    
+  </section>
+
+    </div>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="/application.fed5505c7d1c555b2a3fef58d66ee0a15aac6ffc1a12ebc3b1349ea0050167b8.js" integrity="sha256-/tVQXH0cVVsqP&#43;9Y1m7goVqsb/waEuvDsTSeoAUBZ7g=" defer></script>
+
+
+
+    
+     
+
+    
+</body>
+</html>
