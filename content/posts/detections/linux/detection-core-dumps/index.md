@@ -1,7 +1,7 @@
 ---
 title: Unveiling the Secrets of Linux Core Dumps
 date: 2023-05-28T19:47:08+01:00
-description: Unveiling the Secrets of Linux Core Dumps
+# description: Unveiling the Secrets of Linux Core Dumps
 menu:
   sidebar:
     name: Unveiling the Secrets of Linux Core Dumps
