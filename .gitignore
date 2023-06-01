@@ -1,4 +1,4 @@
 resources/*
 node_modules/*
 .github/*
-ardroci.dev/content/posts/detections/linux/kernel-stack/*
+content/posts/detections/linux/kernel-stack/*
