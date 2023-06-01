@@ -17,12 +17,12 @@ Memory Addresses: The kernel stack call includes memory addresses, usually in he
     </item>
     
     <item>
-      <title>Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies</title>
+      <title>Unveiling the Secrets of Linux Core Dumps</title>
       <link>https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/</link>
       <pubDate>Sun, 28 May 2023 19:47:08 +0100</pubDate>
       
       <guid>https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/</guid>
-      <description>Unveiling the Secrets of Linux Core Dumps - Exploring Purpose, Risks, and Building Threat Detection Strategies A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes. It is a snapshot of the process&amp;rsquo;s memory at the time of the crash, including the values of variables, registers, and other relevant data.</description>
+      <description>Unveiling the Secrets of Linux Core Dumps A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes. It is a snapshot of the process&amp;rsquo;s memory at the time of the crash, including the values of variables, registers, and other relevant data. When a program crashes or terminates abnormally due to an error, the operating system generates a core dump file to help in debugging and understanding the cause of the crash.</description>
     </item>
     
     
