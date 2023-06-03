@@ -8,20 +8,20 @@
     <language>en-us</language>
     <lastBuildDate>Sun, 28 May 2023 19:47:08 +0100</lastBuildDate><atom:link href="https://ardroci.pages.dev/tags/linux/index.xml" rel="self" type="application/rss+xml" /><item>
       <title>Linux kernel stack trace</title>
-      <link>https://ardroci.pages.dev/posts/detections/linux/kernel-stack/</link>
+      <link>https://ardroci.pages.dev/posts/detections/linux/linux-kernel-stack/</link>
       <pubDate>Sun, 28 May 2023 19:47:08 +0100</pubDate>
       
-      <guid>https://ardroci.pages.dev/posts/detections/linux/kernel-stack/</guid>
+      <guid>https://ardroci.pages.dev/posts/detections/linux/linux-kernel-stack/</guid>
       <description>What is a kernel stack call? The Linux kernel stack call, also known as the kernel stack trace, provides information about the sequence of function calls and their associated memory addresses that are currently executing in the kernel. It helps in understanding the execution flow and context within the kernel when certain events occur. Here is the information typically included in a Linux kernel stack call:
 Memory Addresses: The kernel stack call includes memory addresses, usually in hexadecimal format, representing the locations in memory where each function call resides.</description>
     </item>
     
     <item>
       <title>Unveiling the Secrets of Linux Core Dumps</title>
-      <link>https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/</link>
+      <link>https://ardroci.pages.dev/posts/detections/linux/linux-core-dump/</link>
       <pubDate>Sun, 28 May 2023 19:47:08 +0100</pubDate>
       
-      <guid>https://ardroci.pages.dev/posts/detections/linux/detection-core-dumps/</guid>
+      <guid>https://ardroci.pages.dev/posts/detections/linux/linux-core-dump/</guid>
       <description>Understanding Core Dumps: Analysis of their Purpose and Risks A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes. It is a snapshot of the process&amp;rsquo;s memory at the time of the crash, including the values of variables, registers, and other relevant data. When a program crashes or terminates abnormally due to an error, the operating system generates a core dump file to help in debugging and understanding the cause of the crash.</description>
     </item>
     
