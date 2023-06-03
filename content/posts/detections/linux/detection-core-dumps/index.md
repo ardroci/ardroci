@@ -13,7 +13,7 @@ mermaid: true
 tags: ["Threat Detection","Linux","Core Dumps"]
 categories: ["security"]
 ---
-## Unveiling the Secrets of Linux Core Dumps
+## Understanding Core Dumps: Analysis of their Purpose and Risks
 
 A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes. It is a snapshot of the process's memory at the time of the crash, including the values of variables, registers, and other relevant data. When a program crashes or terminates abnormally due to an error, the operating system generates a core dump file to help in debugging and understanding the cause of the crash. This file contains valuable information that can be analyzed to diagnose the issue and fix the software or identify vulnerabilities.
 
