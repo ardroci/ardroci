@@ -1,5 +1,8 @@
 baseURL: https://ardroci.pages.dev/
 
+ignoreFiles: 
+  - content/posts/drafts
+
 languageCode: en-us
 title: "4rdr0ci"
 theme: "toha"
