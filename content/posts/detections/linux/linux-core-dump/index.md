@@ -1,6 +1,6 @@
 ---
 title: Unveiling the Secrets of Linux Core Dumps
-date: 2023-05-28T19:47:08+01:00
+date: 2023-05-28
 # description: Unveiling the Secrets of Linux Core Dumps
 menu:
   sidebar:
@@ -10,9 +10,10 @@ menu:
     weight: 10
 hero: password-with-hand-holding-tweezers-binary-code.jpg
 mermaid: true
-tags: ["Threat Detection","Linux","Core Dumps"]
+tags: ["Threat Detection", "Linux", "Core Dumps"]
 categories: ["security"]
 ---
+
 ## Understanding Core Dumps: Analysis of their Purpose and Risks
 
 A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes. It is a snapshot of the process's memory at the time of the crash, including the values of variables, registers, and other relevant data. When a program crashes or terminates abnormally due to an error, the operating system generates a core dump file to help in debugging and understanding the cause of the crash. This file contains valuable information that can be analyzed to diagnose the issue and fix the software or identify vulnerabilities.
@@ -76,34 +77,43 @@ To effectively eradicate the threat associated with core dump files falling into
 Rather than emphasizing commands that generate core dumps, shift your focus to what can create a core dump, e.g. consider the list of signals that trigger core dump creation in a process, e.g. SIGABRT. <sup>[2, 3]</sup>. However, not all monitoring tools are equipped to handle such intricate levels of detail. As an alternative, you can take advantage of /proc/self/coredump_filter. The /proc/self/coredump_filter file is used in Linux systems to control the types of information that are included in a core dump file when a process crashes. It allows a process to specify which memory segments and resources should be included or excluded from the core dump. Before generating the core dump, the operating system checks the settings in the /proc/self/coredump_filter file to determine which memory segments and resources should be included in the core dump, e.g. openat(AT_FDCWD, "/proc/1688715/coredump_filter", O_RDONLY|O_CLOEXEC) = 14. The operating system reads the bitmask specified in the file to understand the process's preferences for the contents of the core dump. Based on the settings in the coredump_filter file, the operating system includes or excludes the corresponding memory segments and resources when creating the core dump file.
 
 ### Auditd
+
 To detect when a process reads its own core dump filter settings, we will leverage the power of auditd, the Linux auditing framework. Follow these steps to create the FIM rule:
+
 1. Open the audit rules configuration file using a text editor:
+
 ```bash
 sudo vim /etc/audit/rules.d/audit.rules
 ```
 
 2. Add the following line to the file:
+
 ```bash
 -w /proc/self/coredump_filter -p r -k coredump_filter_read
 ```
+
 This rule instructs auditd to monitor the file /proc/self/coredump_filter for read operations (-p r). When a process reads this file, an audit event will be generated and labeled with the key coredump_filter_read (-k coredump_filter_read).
 
 3. Save the file and exit the text editor.
 
 4. Restart the auditd service to apply the changes:
+
 ```bash
 sudo service auditd restart
 ```
 
 ### Falco
+
 Falco is a powerful open-source cloud-native runtime security tool that enables real-time threat detection and response. Here's an example of a Falco rule that can detect when a process reads the /proc/self/coredump_filter file:
 
 1. Open the falco rules configuration file using a text editor:
+
 ```bash
 sudo nano /etc/falco/falco_rules.local.yaml
 ```
 
-2. Add the following macro and rule to the file: 
+2. Add the following macro and rule to the file:
+
 ```yaml
 - macro: open_read
   condition: (evt.type in (open,openat,openat2) and evt.is_open_read=true and fd.typechar='f' and fd.num>=0)
@@ -134,6 +144,7 @@ sudo nano /etc/falco/falco_rules.local.yaml
 3. Save the file and exit the text editor.
 
 4. Restart the falco service to apply the changes:
+
 ```bash
 sudo service falco restart
 ```
@@ -142,8 +153,8 @@ sudo service falco restart
 > Make sure to configure Falco properly to ensure it captures the necessary system events and performs the desired detection. Adjust the rule according to your specific environment and monitoring needs.
 
 ## Validation
-Once you have implemented a FIM rule to detect process access to the /proc/self/coredump_filter file, it is essential to verify that the detection logic is functioning correctly. In this section, we will walk you through the steps to test the detection logic of the rule and ensure that it generates the expected output when a process reads the core dump filter file. Regularly testing and validating your security monitoring rules is crucial to ensure that your system remains protected against unauthorized or suspicious activities.
 
+Once you have implemented a FIM rule to detect process access to the /proc/self/coredump_filter file, it is essential to verify that the detection logic is functioning correctly. In this section, we will walk you through the steps to test the detection logic of the rule and ensure that it generates the expected output when a process reads the core dump filter file. Regularly testing and validating your security monitoring rules is crucial to ensure that your system remains protected against unauthorized or suspicious activities.
 
 **Step 1: Preparing the Environment**
 
@@ -152,6 +163,7 @@ Before testing the rule, ensure that you have Falco or auditd properly installed
 **Step 2: Performing the Test**
 
 To test the detection logic, execute the following commands:
+
 ```bash
 sleep 300 &
 PID=$!
@@ -163,6 +175,7 @@ kill -s SIGSEGV "$PID"
 Analyze the output generated by the detection logic and compare it against the expected results for the test scenario. Determine whether the detection logic accurately detects the simulated threat and creates and audit record and provides an appropriate alert.
 
 ## Bed Time Reading
+
 1. https://wiki.archlinux.org/title/Core_dump
 2. https://man7.org/linux/man-pages/man5/core.5.html
 3. https://man7.org/linux/man-pages/man7/signal.7.html

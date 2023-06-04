@@ -6,13 +6,22 @@
     <description>Recent content in Threat Detection on 4rdr0ci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 28 May 2023 19:47:08 +0100</lastBuildDate><atom:link href="https://ardroci.pages.dev/tags/threat-detection/index.xml" rel="self" type="application/rss+xml" /><item>
+    <lastBuildDate>Sun, 28 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://ardroci.pages.dev/tags/threat-detection/index.xml" rel="self" type="application/rss+xml" /><item>
       <title>Unveiling the Secrets of Linux Core Dumps</title>
       <link>https://ardroci.pages.dev/posts/detections/linux/linux-core-dump/</link>
-      <pubDate>Sun, 28 May 2023 19:47:08 +0100</pubDate>
+      <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
       
       <guid>https://ardroci.pages.dev/posts/detections/linux/linux-core-dump/</guid>
       <description>Understanding Core Dumps: Analysis of their Purpose and Risks A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes. It is a snapshot of the process&amp;rsquo;s memory at the time of the crash, including the values of variables, registers, and other relevant data. When a program crashes or terminates abnormally due to an error, the operating system generates a core dump file to help in debugging and understanding the cause of the crash.</description>
+    </item>
+    
+    <item>
+      <title>Invisible Intruders - Unmasking the Stealthy World of Fileless Malware</title>
+      <link>https://ardroci.pages.dev/posts/detections/linux/linux-fileless-malware/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ardroci.pages.dev/posts/detections/linux/linux-fileless-malware/</guid>
+      <description>In the ever-evolving landscape of cyber threats, malware continues to be a significant concern for individuals and organizations alike. Traditional malware often relies on files to carry out malicious activities. However, a couple of years ago a new breed of malware known as &amp;ldquo;fileless malware&amp;rdquo; has emerged, posing a formidable challenge to cybersecurity professionals. In this blog post, we will explore the concept of fileless malware, discuss threat actors utilizing it, delve into their techniques, and discover methods to detect fileless malware on Linux systems.</description>
     </item>
     
     
