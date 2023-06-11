@@ -29,7 +29,7 @@ update_hugo:
 update_node_modules:
 	@echo "Install node modules"
 	hugo mod npm pack
-	npm install
+	npm install -v
 
 .PHONY: deploy
 deploy:
