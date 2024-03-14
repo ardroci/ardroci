@@ -1,23 +1,23 @@
 {
-  "name": "hugoplate",
-  "description": "hugo tailwindcss boilerplate",
-  "version": "1.12.3",
-  "license": "MIT",
   "author": "zeon.studio",
-  "scripts": {
-    "dev": "hugo server",
-    "build": "hugo --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic",
-    "preview": "hugo server --disableFastRender --navigateToChanged --templateMetrics --templateMetricsHints --watch --forceSyncStatic -e production --minify",
-    "dev:example": "cd exampleSite; hugo server",
-    "build:example": "cd exampleSite; hugo --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic",
-    "preview:example": "cd exampleSite; hugo server --disableFastRender --navigateToChanged --templateMetrics --templateMetricsHints --watch --forceSyncStatic -e production --minify",
-    "update-modules": "node ./scripts/clearModules.js && hugo mod clean --all && hugo mod get -u ./... && hugo mod tidy",
-    "remove-darkmode": "node ./scripts/removeDarkmode.js && yarn format",
-    "project-setup": "node ./scripts/projectSetup.js",
-    "theme-setup": "node ./scripts/themeSetup.js",
-    "update-theme": "node ./scripts/themeUpdate.js",
-    "format": "prettier -w ."
+  "comments": {
+    "dependencies": {},
+    "devDependencies": {
+      "@fullhuman/postcss-purgecss": "project",
+      "@tailwindcss/forms": "project",
+      "@tailwindcss/typography": "project",
+      "autoprefixer": "project",
+      "postcss": "project",
+      "postcss-cli": "project",
+      "prettier": "project",
+      "prettier-plugin-go-template": "project",
+      "prettier-plugin-tailwindcss": "project",
+      "tailwind-bootstrap-grid": "project",
+      "tailwindcss": "project"
+    }
   },
+  "dependencies": {},
+  "description": "hugo tailwindcss boilerplate",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^5.0.0",
     "@tailwindcss/forms": "^0.5.7",
@@ -30,5 +30,22 @@
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwind-bootstrap-grid": "^5.1.0",
     "tailwindcss": "^3.4.1"
-  }
+  },
+  "license": "MIT",
+  "name": "hugoplate",
+  "scripts": {
+    "build": "hugo --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic",
+    "build:example": "cd exampleSite; hugo --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic",
+    "dev": "hugo server",
+    "dev:example": "cd exampleSite; hugo server",
+    "format": "prettier -w .",
+    "preview": "hugo server --disableFastRender --navigateToChanged --templateMetrics --templateMetricsHints --watch --forceSyncStatic -e production --minify",
+    "preview:example": "cd exampleSite; hugo server --disableFastRender --navigateToChanged --templateMetrics --templateMetricsHints --watch --forceSyncStatic -e production --minify",
+    "project-setup": "node ./scripts/projectSetup.js",
+    "remove-darkmode": "node ./scripts/removeDarkmode.js && yarn format",
+    "theme-setup": "node ./scripts/themeSetup.js",
+    "update-modules": "node ./scripts/clearModules.js && hugo mod clean --all && hugo mod get -u ./... && hugo mod tidy",
+    "update-theme": "node ./scripts/themeUpdate.js"
+  },
+  "version": "1.12.3"
 }
