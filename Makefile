@@ -13,7 +13,7 @@ clean:
 .PHONY: git_update
 git_update:
 	@echo "Updating Hugo git repository"
-	# git pull
+	git pull
 
 .PHONY: build
 build:

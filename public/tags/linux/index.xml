@@ -1,1 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on ardroci</title><link>/tags/linux/</link><description>Recent content in Linux on ardroci</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 04 Jun 2023 00:00:00 -0400</lastBuildDate><atom:link href="/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Invisible Intruders - Unmasking the Stealthy World of Fileless Malware</title><link>/blog/linux-fileless-malware/</link><pubDate>Sun, 04 Jun 2023 00:00:00 -0400</pubDate><guid>/blog/linux-fileless-malware/</guid><description>In the ever-evolving landscape of cyber threats, malware continues to be a significant concern for individuals and organizations alike.</description></item><item><title>Unveiling the Secrets of Linux Core Dumps</title><link>/blog/linux-core-dump/</link><pubDate>Sun, 28 May 2023 00:00:00 -0400</pubDate><guid>/blog/linux-core-dump/</guid><description>Understanding Core Dumps: Analysis of their Purpose and Risks A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on ardroci</title>
+    <link>/tags/linux/</link>
+    <description>Recent content in Linux on ardroci</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 04 Jun 2023 00:00:00 -0400</lastBuildDate>
+    <atom:link href="/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Invisible Intruders - Unmasking the Stealthy World of Fileless Malware</title>
+      <link>/blog/linux-fileless-malware/</link>
+      <pubDate>Sun, 04 Jun 2023 00:00:00 -0400</pubDate>
+      <guid>/blog/linux-fileless-malware/</guid>
+      <description>In the ever-evolving landscape of cyber threats, malware continues to be a significant concern for individuals and organizations alike.</description>
+    </item>
+    <item>
+      <title>Unveiling the Secrets of Linux Core Dumps</title>
+      <link>/blog/linux-core-dump/</link>
+      <pubDate>Sun, 28 May 2023 00:00:00 -0400</pubDate>
+      <guid>/blog/linux-core-dump/</guid>
+      <description>Understanding Core Dumps: Analysis of their Purpose and Risks A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes.</description>
+    </item>
+  </channel>
+</rss>

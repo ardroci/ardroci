@@ -1,1 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Metrics on ardroci</title><link>/tags/metrics/</link><description>Recent content in Metrics on ardroci</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 10 Mar 2023 00:00:00 -0500</lastBuildDate><atom:link href="/tags/metrics/index.xml" rel="self" type="application/rss+xml"/><item><title>Maximizing Threat Detection Rule Effectiveness</title><link>/blog/detection-rule-effectiveness/</link><pubDate>Fri, 10 Mar 2023 00:00:00 -0500</pubDate><guid>/blog/detection-rule-effectiveness/</guid><description>Maximizing Threat Detection Rule Effectiveness As security detection engineers, we constantly strive to enhance the effectiveness of our threat detection rules.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Metrics on ardroci</title>
+    <link>/tags/metrics/</link>
+    <description>Recent content in Metrics on ardroci</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 10 Mar 2023 00:00:00 -0500</lastBuildDate>
+    <atom:link href="/tags/metrics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Maximizing Threat Detection Rule Effectiveness</title>
+      <link>/blog/detection-rule-effectiveness/</link>
+      <pubDate>Fri, 10 Mar 2023 00:00:00 -0500</pubDate>
+      <guid>/blog/detection-rule-effectiveness/</guid>
+      <description>Maximizing Threat Detection Rule Effectiveness As security detection engineers, we constantly strive to enhance the effectiveness of our threat detection rules.</description>
+    </item>
+  </channel>
+</rss>

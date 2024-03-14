@@ -1,1 +1,54 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tags on ardroci</title><link>/tags/</link><description>Recent content in Tags on ardroci</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 04 Jun 2023 00:00:00 -0400</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux</title><link>/tags/linux/</link><pubDate>Sun, 04 Jun 2023 00:00:00 -0400</pubDate><guid>/tags/linux/</guid><description/></item><item><title>Malware</title><link>/tags/malware/</link><pubDate>Sun, 04 Jun 2023 00:00:00 -0400</pubDate><guid>/tags/malware/</guid><description/></item><item><title>Threat Detection</title><link>/tags/threat-detection/</link><pubDate>Sun, 04 Jun 2023 00:00:00 -0400</pubDate><guid>/tags/threat-detection/</guid><description/></item><item><title>Core Dumps</title><link>/tags/core-dumps/</link><pubDate>Sun, 28 May 2023 00:00:00 -0400</pubDate><guid>/tags/core-dumps/</guid><description/></item><item><title>Metrics</title><link>/tags/metrics/</link><pubDate>Fri, 10 Mar 2023 00:00:00 -0500</pubDate><guid>/tags/metrics/</guid><description/></item><item><title>Rule</title><link>/tags/rule/</link><pubDate>Fri, 10 Mar 2023 00:00:00 -0500</pubDate><guid>/tags/rule/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on ardroci</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on ardroci</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 04 Jun 2023 00:00:00 -0400</lastBuildDate>
+    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux</title>
+      <link>/tags/linux/</link>
+      <pubDate>Sun, 04 Jun 2023 00:00:00 -0400</pubDate>
+      <guid>/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Malware</title>
+      <link>/tags/malware/</link>
+      <pubDate>Sun, 04 Jun 2023 00:00:00 -0400</pubDate>
+      <guid>/tags/malware/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Threat Detection</title>
+      <link>/tags/threat-detection/</link>
+      <pubDate>Sun, 04 Jun 2023 00:00:00 -0400</pubDate>
+      <guid>/tags/threat-detection/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Core Dumps</title>
+      <link>/tags/core-dumps/</link>
+      <pubDate>Sun, 28 May 2023 00:00:00 -0400</pubDate>
+      <guid>/tags/core-dumps/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Metrics</title>
+      <link>/tags/metrics/</link>
+      <pubDate>Fri, 10 Mar 2023 00:00:00 -0500</pubDate>
+      <guid>/tags/metrics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Rule</title>
+      <link>/tags/rule/</link>
+      <pubDate>Fri, 10 Mar 2023 00:00:00 -0500</pubDate>
+      <guid>/tags/rule/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

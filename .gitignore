@@ -16,6 +16,7 @@ hugo_stats.json
 go.sum
 yarn.lock
 
-.github/*
+.github
+.devcontainer
 content/blog/drafts/
 .gitignore
