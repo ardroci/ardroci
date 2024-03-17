@@ -18,5 +18,5 @@ yarn.lock
 
 .github
 .devcontainer
-content/blog/drafts/
+content/english/blog/drafts/
 .gitignore
