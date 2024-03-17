@@ -3,7 +3,7 @@
 banner:
   title: "Navigating Threat Detection and the Evolving Landscape"
   content: "Join me on my blog as we navigate the complexities of cybersecurity, exploring threat detection strategies and sharing updates on the current threat landscape."
-  image: "/images/banner.png"
+  # image: "/images/banner.png"
   # button:
   #   enable: true
   #   label: "Get Started For Free"
