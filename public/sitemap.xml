@@ -3,13 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2023-06-04T00:00:00-04:00</lastmod>
+    <lastmod>2024-01-02T00:00:00-05:00</lastmod>
   </url><url>
     <loc>/blog/</loc>
-    <lastmod>2023-06-04T00:00:00-04:00</lastmod>
+    <lastmod>2024-01-02T00:00:00-05:00</lastmod>
   </url><url>
     <loc>/categories/</loc>
-    <lastmod>2023-06-04T00:00:00-04:00</lastmod>
+    <lastmod>2024-01-02T00:00:00-05:00</lastmod>
+  </url><url>
+    <loc>/blog/detecting_threat_progression/</loc>
+    <lastmod>2024-01-02T00:00:00-05:00</lastmod>
+  </url><url>
+    <loc>/tags/fundamental-principles/</loc>
+    <lastmod>2024-01-02T00:00:00-05:00</lastmod>
+  </url><url>
+    <loc>/categories/security/</loc>
+    <lastmod>2024-01-02T00:00:00-05:00</lastmod>
+  </url><url>
+    <loc>/tags/strategy/</loc>
+    <lastmod>2024-01-02T00:00:00-05:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2024-01-02T00:00:00-05:00</lastmod>
+  </url><url>
+    <loc>/tags/threat-detection/</loc>
+    <lastmod>2024-01-02T00:00:00-05:00</lastmod>
   </url><url>
     <loc>/blog/linux-fileless-malware/</loc>
     <lastmod>2023-06-04T00:00:00-04:00</lastmod>
@@ -18,15 +36,6 @@
     <lastmod>2023-06-04T00:00:00-04:00</lastmod>
   </url><url>
     <loc>/tags/malware/</loc>
-    <lastmod>2023-06-04T00:00:00-04:00</lastmod>
-  </url><url>
-    <loc>/categories/security/</loc>
-    <lastmod>2023-06-04T00:00:00-04:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
-    <lastmod>2023-06-04T00:00:00-04:00</lastmod>
-  </url><url>
-    <loc>/tags/threat-detection/</loc>
     <lastmod>2023-06-04T00:00:00-04:00</lastmod>
   </url><url>
     <loc>/tags/core-dumps/</loc>

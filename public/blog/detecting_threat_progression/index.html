@@ -63,7 +63,7 @@
   
 
 
-<title>Unveiling the Secrets of Linux Core Dumps</title>
+<title>Detecting Threat Progression</title>
 
 
 
@@ -140,8 +140,8 @@
       
       
       
-        <meta property="og:image" content="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code.jpg" />
-        <meta name="twitter:image" content="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code.jpg" />
+        <meta property="og:image" content="/images/detecting_threat_progression/unified_kill_chain.png" />
+        <meta name="twitter:image" content="/images/detecting_threat_progression/unified_kill_chain.png" />
         <meta
           name="twitter:card"
           content="summary
@@ -149,8 +149,8 @@
           " />
       
       
-      <meta property="og:image:width" content="1000" />
-      <meta property="og:image:height" content="667" />
+      <meta property="og:image:width" content="4200" />
+      <meta property="og:image:height" content="1325" />
     
 
 
@@ -158,7 +158,7 @@
     <meta
       property="og:image:type"
       content="image/
-        .jpg
+        .png
       " />
   
 
@@ -169,13 +169,13 @@
 
 
 
-<meta property="og:title" content="Unveiling the Secrets of Linux Core Dumps" />
+<meta property="og:title" content="Detecting Threat Progression" />
 <meta property="og:description" content="Hugo &amp; Tailwindcss Starter" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="/blog/linux-core-dump/" />
+<meta property="og:url" content="/blog/detecting_threat_progression/" />
 
 
-<meta name="twitter:title" content="Unveiling the Secrets of Linux Core Dumps" />
+<meta name="twitter:title" content="Detecting Threat Progression" />
 <meta name="twitter:description" content="Hugo &amp; Tailwindcss Starter" />
 
 
@@ -731,31 +731,31 @@
         <picture>
           <source
             
-              srcset="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code_hu9009c3e40950ab36b989238b7140cc78_1190670_545x0_resize_q80_h2_lanczos.webp"
+              srcset="/images/detecting_threat_progression/unified_kill_chain_hu339cdd9ab2052a2d5c43a6b82b9bf070_238340_545x0_resize_q80_h2_lanczos_3.webp"
             
             media="(max-width: 575px)" />
           <source
             
-              srcset="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code_hu9009c3e40950ab36b989238b7140cc78_1190670_600x0_resize_q80_h2_lanczos.webp"
+              srcset="/images/detecting_threat_progression/unified_kill_chain_hu339cdd9ab2052a2d5c43a6b82b9bf070_238340_600x0_resize_q80_h2_lanczos_3.webp"
             
             media="(max-width: 767px)" />
           <source
             
-              srcset="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code_hu9009c3e40950ab36b989238b7140cc78_1190670_700x0_resize_q80_h2_lanczos.webp"
+              srcset="/images/detecting_threat_progression/unified_kill_chain_hu339cdd9ab2052a2d5c43a6b82b9bf070_238340_700x0_resize_q80_h2_lanczos_3.webp"
             
             media="(max-width: 991px)" />
           <source
             
-              srcset="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code_hu9009c3e40950ab36b989238b7140cc78_1190670_1110x0_resize_q80_h2_lanczos.webp"
+              srcset="/images/detecting_threat_progression/unified_kill_chain_hu339cdd9ab2052a2d5c43a6b82b9bf070_238340_1110x0_resize_q80_h2_lanczos_3.webp"
              />
           <img
             
               loading="lazy" decoding="async"
-              src="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code_hu9009c3e40950ab36b989238b7140cc78_1190670_1110x0_resize_q80_lanczos.jpg"
+              src="/images/detecting_threat_progression/unified_kill_chain_hu339cdd9ab2052a2d5c43a6b82b9bf070_238340_1110x0_resize_lanczos_3.png"
             class=" w-full rounded img"
-            alt="Unveiling the Secrets of Linux Core Dumps"
-            width="1000"
-            height="667" />
+            alt="Detecting Threat Progression"
+            width="4200"
+            height="1325" />
         </picture>
       
       
@@ -770,7 +770,7 @@
             </div>
           
           <h1 class="h2 mb-4">
-            Unveiling the Secrets of Linux Core Dumps
+            Detecting Threat Progression
           </h1>
           <ul class="mb-4">
             <li class="mr-4 inline-block">
@@ -795,149 +795,16 @@
             
             <li class="mr-4 inline-block">
               <i class="fa-regular fa-clock mr-2"></i>
-              May 28, 2023
+              January 2, 2024
             </li>
           </ul>
           <div class="content mb-10">
-            <h2 id="understanding-core-dumps-analysis-of-their-purpose-and-risks">Understanding Core Dumps: Analysis of their Purpose and Risks</h2>
-<p>A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes. It is a snapshot of the process&rsquo;s memory at the time of the crash, including the values of variables, registers, and other relevant data. When a program crashes or terminates abnormally due to an error, the operating system generates a core dump file to help in debugging and understanding the cause of the crash. This file contains valuable information that can be analyzed to diagnose the issue and fix the software or identify vulnerabilities.</p>
-<p>The core dump file is typically written to disk in a binary format but it can also be passed to a helper program (such as systemd-coredump(8)) for further processing. The memory image of the crashed process includes the program&rsquo;s code, stack frames, heap data, and other relevant information. By examining the core dump, developers and security professionals can gain insights into the state of the program at the time of the crash, helping them identify bugs, memory corruption issues, or security vulnerabilities.</p>
-<p>To analyze a core dump file, various debugging tools and techniques can be used. These tools allow the examination of memory regions, registers, and stack frames to understand the flow of the program before it crashed. Debuggers like GDB (GNU Debugger) are commonly used to load the core dump file and perform detailed analysis, including inspecting variables, stepping through the code, and examining memory regions.</p>
-<p>Security detection engineers may utilize core dumps as part of their investigations when analyzing incidents related to software crashes, exploits, or malicious activities. By examining the core dump, they can gather crucial information about the exploit or identify potential vulnerabilities that were exploited.</p>
-<p>It&rsquo;s worth noting that core dumps may contain sensitive information, such as passwords or encryption keys, depending on the state of the crashed process. Therefore, it&rsquo;s important to handle core dump files with care, restrict access to authorized personnel, and ensure they are securely stored to prevent unauthorized access to sensitive data.</p>
-<h2 id="threat-actor-exploitation-of-core-dumps">Threat Actor Exploitation of Core Dumps</h2>
-<p>In general, a core dump file itself does not pose a direct risk when it comes to threat actors using it maliciously. However, threat actors can potentially leverage the information contained within a core dump to aid in their attacks or exploit vulnerabilities. Here are a few scenarios where a threat actor might find value in a core dump:</p>
-<ol>
-<li>
-<p>Information Disclosure: If the core dump file contains sensitive information, such as passwords, API keys, or cryptographic keys, a threat actor could analyze the dump to extract and exploit that data.</p>
-</li>
-<li>
-<p>Exploit Analysis: By examining a core dump, threat actors can gain insights into the inner workings of a crashed process. They can analyze the memory contents to identify vulnerabilities, memory corruption issues, or other weaknesses that could be exploited for their malicious activities.</p>
-</li>
-<li>
-<p>Reverse Engineering: A threat actor may use a core dump file to reverse engineer the software and understand its internal structure, algorithms, or proprietary protocols. This knowledge can be leveraged to craft more sophisticated attacks or develop exploits targeting specific vulnerabilities.</p>
-</li>
-<li>
-<p>Debugging Exploits: Core dumps provide detailed information about the state of a crashed process, including register values, stack traces, and memory contents. Threat actors can use this information to debug their exploits, fine-tune their attack techniques, or identify potential weaknesses to bypass security measures.</p>
-</li>
-</ol>
-<h2 id="threat-actor-techniques-how-they-force-core-dumps">Threat Actor Techniques: How They Force Core Dumps</h2>
-<p>In the realm of cybersecurity, threat actors continuously devise new methods to achieve their malicious objectives. One technique they may employ is to force a core dump on a targeted system. In this section, we will explore how threat actors can force core dumps and the potential risks associated with these actions.</p>
-<p><strong>Method 1: Exploiting Vulnerabilities</strong>
-One common approach utilized by threat actors involves exploiting software vulnerabilities. By identifying weaknesses in applications or the underlying operating system, they can trigger crashes or abnormal terminations intentionally. Vulnerabilities such as memory corruption, buffer overflow, or programming errors may serve as entry points. Through targeted exploitation, threat actors can force a process to crash, ultimately leading to the generation of a core dump.</p>
-<p><strong>Method 2: Resource Exhaustion</strong>
-Another technique is to exhaust system resources deliberately. By overwhelming a specific process or the system as a whole, threat actors can cause a crash scenario. Excessive consumption of memory, CPU, or other critical resources can result in an abnormal termination, triggering the creation of a core dump.</p>
-<p><strong>Method 3: Signal Injection</strong>
-Threat actors may manipulate vulnerable applications to generate specific signals, such as the <code>SIGSEGV</code> (segmentation fault) signal. This signal, when injected, causes a process to terminate abruptly. By exploiting the application&rsquo;s vulnerability to signal injection, threat actors can induce a crash scenario and prompt the system to generate a core dump.</p>
-<p><strong>Method 4: Debugging Tools Abuse</strong>
-If a threat actor gains unauthorized access to a system or compromises a privileged account, they may abuse debugging tools that allow core dump generation. Debuggers like GDB (GNU Debugger) or similar utilities can be misused to force crashes, intercept signals, or manipulate the target process&rsquo;s behavior. Through such manipulation, threat actors can trigger core dump creation.</p>
-<h2 id="mitigation-strategies">Mitigation Strategies</h2>
-<p>To effectively eradicate the threat associated with core dump files falling into the wrong hands, it is important to implement a combination of preventive measures and incident response practices. Here are some steps you can take:</p>
-<ol>
-<li>
-<p>Access Controls: Implement strong access controls to restrict access to core dump files. Only authorized personnel should have permission to access and analyze these files. Regularly review and update access privileges to ensure they align with the principle of least privilege.</p>
-</li>
-<li>
-<p>Secure Storage and Encryption: Store core dump files in a secure location, such as a dedicated and protected directory or server, with proper encryption in place. Encryption adds an extra layer of protection, especially if the files are stored or transferred over untrusted networks.</p>
-</li>
-<li>
-<p>Data Sanitization: Before sharing or analyzing core dump files, ensure sensitive data within the dumps, such as passwords, keys, or personally identifiable information (PII), is removed or obfuscated. This can be achieved by scrubbing or sanitizing the dumps using appropriate tools or techniques.</p>
-</li>
-<li>
-<p>Incident Response Planning: Develop a comprehensive incident response plan specifically tailored to address incidents involving core dump files. This plan should outline the steps to be taken when a core dump is compromised or potentially accessed by unauthorized parties.</p>
-</li>
-<li>
-<p>Monitoring and Detection: Implement robust monitoring and detection mechanisms to identify any unauthorized access attempts or suspicious activities related to core dump files. This can include intrusion detection systems, log analysis, and security event monitoring.</p>
-</li>
-<li>
-<p>Regular Auditing and Review: Conduct regular audits and reviews of the access logs, storage locations, and security measures related to core dump files. This helps ensure that security controls are functioning as intended and any vulnerabilities or misconfigurations are promptly addressed.</p>
-</li>
-<li>
-<p>Employee Awareness and Training: Provide training and awareness programs to employees involved in handling core dump files. Educate them about the importance of securing and handling these files properly, including the risks associated with their exposure and the best practices to mitigate those risks.</p>
-</li>
-</ol>
-<h2 id="threat-detection-rules">Threat Detection Rules</h2>
-<p>Rather than emphasizing commands that generate core dumps, shift your focus to what can create a core dump, e.g. consider the list of signals that trigger core dump creation in a process, e.g. SIGABRT. <sup>[2, 3]</sup>. However, not all monitoring tools are equipped to handle such intricate levels of detail. As an alternative, you can take advantage of /proc/self/coredump_filter. The /proc/self/coredump_filter file is used in Linux systems to control the types of information that are included in a core dump file when a process crashes. It allows a process to specify which memory segments and resources should be included or excluded from the core dump. Before generating the core dump, the operating system checks the settings in the /proc/self/coredump_filter file to determine which memory segments and resources should be included in the core dump, e.g. openat(AT_FDCWD, &ldquo;/proc/1688715/coredump_filter&rdquo;, O_RDONLY|O_CLOEXEC) = 14. The operating system reads the bitmask specified in the file to understand the process&rsquo;s preferences for the contents of the core dump. Based on the settings in the coredump_filter file, the operating system includes or excludes the corresponding memory segments and resources when creating the core dump file.</p>
-<h3 id="auditd">Auditd</h3>
-<p>To detect when a process reads its own core dump filter settings, we will leverage the power of auditd, the Linux auditing framework. Follow these steps to create the FIM rule:</p>
-<ol>
-<li>Open the audit rules configuration file using a text editor:</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo vim /etc/audit/rules.d/audit.rules
-</span></span></code></pre></div><ol start="2">
-<li>Add the following line to the file:</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>-w /proc/self/coredump_filter -p r -k coredump_filter_read
-</span></span></code></pre></div><p>This rule instructs auditd to monitor the file /proc/self/coredump_filter for read operations (-p r). When a process reads this file, an audit event will be generated and labeled with the key coredump_filter_read (-k coredump_filter_read).</p>
-<ol start="3">
-<li>
-<p>Save the file and exit the text editor.</p>
-</li>
-<li>
-<p>Restart the auditd service to apply the changes:</p>
-</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo service auditd restart
-</span></span></code></pre></div><h3 id="falco">Falco</h3>
-<p>Falco is a powerful open-source cloud-native runtime security tool that enables real-time threat detection and response. Here&rsquo;s an example of a Falco rule that can detect when a process reads the /proc/self/coredump_filter file:</p>
-<ol>
-<li>Open the falco rules configuration file using a text editor:</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/falco/falco_rules.local.yaml
-</span></span></code></pre></div><ol start="2">
-<li>Add the following macro and rule to the file:</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#f92672">macro</span>: <span style="color:#ae81ff">open_read</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">condition</span>: <span style="color:#ae81ff">(evt.type in (open,openat,openat2) and evt.is_open_read=true and fd.typechar=&#39;f&#39; and fd.num&gt;=0)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>- <span style="color:#f92672">rule</span>: <span style="color:#ae81ff">Core dump file created</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">desc</span>: &gt;<span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Identifies attempts to create a core dump file.</span>    
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">true</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">condition</span>: &gt;<span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    evt.category=file 
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    and open_read
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    and fd.name = &#34;/proc/self/coredump_filter&#34;</span>    
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">output</span>: |<span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # Event information
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    evt_rawres=%evt.rawres, evt_type=%evt.type, evt_dir=%evt.dir, syscall_type=%syscall.type, evt_category=%evt.category, evt_args=%evt.args, 
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # Process information
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    proc_pid=%proc.pid, proc_exe=%proc.exe, proc_name=%proc.name, proc_args=%proc.args, proc_cmdline=%proc.cmdline, proc_exeline=%proc.exeline, proc_cwd=%proc.cwd, proc_nthreads=%proc.nthreads, proc_nchilds=%proc.nchilds, proc_ppid=%proc.ppid, proc_pname=%proc.pname, proc_pcmdline=%proc.pcmdline, proc_apid_2=%proc.apid[2], proc_aname_2=%proc.aname[2], proc_apid_3=%proc.apid[3], proc_aname_3=%proc.aname[3], proc_apid_4=%proc.apid[4], proc_aname_4=%proc.aname[4], proc_loginshellid=%proc.loginshellid, proc_duration=%proc.duration, proc_fdopencount=%proc.fdopencount, proc_vmsize=%proc.vmsize, proc_sid=%proc.sid, proc_sname=%proc.sname, proc_tty=%proc.tty, proc_exepath=%proc.exepath, proc_vpgid=%proc.vpgid, proc_is_exe_writable=%proc.is_exe_writable,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # Threat information
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    #thread_cap_permitted=%thread.cap_permitted, thread_cap_inheritable=%thread.cap_inheritable, thread_cap_effective=%thread.cap_effective,
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # File descriptor information
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    fd_num=%fd.num, fd.type=%fd.type, fd_name=%fd.name, 
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    # User and group information
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    user_uid=%user.uid, user_name=%user.name, user_homedir=%user.homedir, user_shell=%user.shell, user_loginuid=%user.loginuid, user_loginname=%user.loginname, group_gid=%group.gid, group_name=%group.name</span>    
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">priority</span>: <span style="color:#ae81ff">WARNING</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tags</span>: [<span style="color:#ae81ff">filesystem, mitre_credential_access, mitre_discovery]</span>
-</span></span></code></pre></div><ol start="3">
-<li>
-<p>Save the file and exit the text editor.</p>
-</li>
-<li>
-<p>Restart the falco service to apply the changes:</p>
-</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo service falco restart
-</span></span></code></pre></div><blockquote>
-<p><strong>Note</strong>
-Make sure to configure Falco properly to ensure it captures the necessary system events and performs the desired detection. Adjust the rule according to your specific environment and monitoring needs.</p>
-</blockquote>
-<h2 id="validation">Validation</h2>
-<p>Once you have implemented a FIM rule to detect process access to the /proc/self/coredump_filter file, it is essential to verify that the detection logic is functioning correctly. In this section, we will walk you through the steps to test the detection logic of the rule and ensure that it generates the expected output when a process reads the core dump filter file. Regularly testing and validating your security monitoring rules is crucial to ensure that your system remains protected against unauthorized or suspicious activities.</p>
-<p><strong>Step 1: Preparing the Environment</strong></p>
-<p>Before testing the rule, ensure that you have Falco or auditd properly installed and running on your system. Refer to the tool documentation for guidance on installation and configuration specific to your environment.</p>
-<p><strong>Step 2: Performing the Test</strong></p>
-<p>To test the detection logic, execute the following commands:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sleep <span style="color:#ae81ff">300</span> &amp;
-</span></span><span style="display:flex;"><span>PID<span style="color:#f92672">=</span>$!
-</span></span><span style="display:flex;"><span>kill -s SIGSEGV <span style="color:#e6db74">&#34;</span>$PID<span style="color:#e6db74">&#34;</span>
-</span></span></code></pre></div><p><strong>Step 3: Analyze Results</strong></p>
-<p>Analyze the output generated by the detection logic and compare it against the expected results for the test scenario. Determine whether the detection logic accurately detects the simulated threat and creates and audit record and provides an appropriate alert.</p>
-<h2 id="bed-time-reading">Bed Time Reading</h2>
-<ol>
-<li><a href="https://wiki.archlinux.org/title/Core_dump"
+            <h2 id="the-need-for-evolution-in-threat-detection">The Need for Evolution in Threat Detection</h2>
+<p>Cyber threats are not static; they evolve as threat actors adapt their strategies to bypass defenses. Conventional detection methods often focus on individual signals in isolation. This blog post proposes the concept of &ldquo;Detection of an Evolving Threat&rdquo; to address this limitation, allowing detection engineers to track threats as they advance through the unified kill chain.</p>
+<h2 id="understanding-and-implementing-detection-of-an-evolving-threat">Understanding and Implementing Detection of an Evolving Threat</h2>
+<p>Detection of an Evolving Threat represents a paradigm shift in the way we approach threat identification. It is underpinned by fundamental principles, each contributing to a more effective threat detection strategy.</p>
+<h4 id="kill-chain-progression-navigating-threats-across-stages">Kill Chain Progression: Navigating Threats Across Stages</h4>
+<p>A critical aspect of Detection of an Evolving Threat is its focus on the <a href="https://www.unifiedkillchain.com/assets/The-Unified-Kill-Chain.pdf"
 
 
 
@@ -946,42 +813,69 @@ Make sure to configure Falco properly to ensure it captures the necessary system
  
 
 
->https://wiki.archlinux.org/title/Core_dump</a>
-</li>
-<li><a href="https://man7.org/linux/man-pages/man5/core.5.html"
-
-
-
-
- target="_blank"
- 
-
-
->https://man7.org/linux/man-pages/man5/core.5.html</a>
-</li>
-<li><a href="https://man7.org/linux/man-pages/man7/signal.7.html"
-
-
-
-
- target="_blank"
- 
-
-
->https://man7.org/linux/man-pages/man7/signal.7.html</a>
-</li>
-<li><a href="https://linux-audit.com/understand-and-configure-core-dumps-work-on-linux/#disable-core-dumps"
-
-
-
-
- target="_blank"
- 
-
-
->https://linux-audit.com/understand-and-configure-core-dumps-work-on-linux/#disable-core-dumps</a>
-</li>
-</ol>
+>unified kill chain</a>
+, the sequential stages a threat actor typically traverses. From initial foothold to actions on objective, understanding the progression of threats through these stages is paramount. This principle allows us to not only identify isolated incidents but also to trace the entire trajectory of a potential threat.</p>
+<h4 id="signal-sequencing-a-chronological-tapestry-of-threat-indicators">Signal Sequencing: A Chronological Tapestry of Threat Indicators</h4>
+<p>Traditionally, detection signals have been treated as isolated events, lacking a chronological context. Detection of an Evolving Threat introduces the concept of signal sequencing, emphasizing the importance of understanding how multiple signals unfold over time. It&rsquo;s akin to weaving a chronological tapestry that tells a more comprehensive story of potential threats. This temporal sequencing provides a richer context, aiding in the differentiation between transient anomalies and orchestrated attacks. By considering the temporal aspect, we move beyond isolated events to understand the unfolding narrative of potential threats.</p>
+<h4 id="contextual-awareness-bridging-past-and-present-threat-activities">Contextual Awareness: Bridging Past and Present Threat Activities</h4>
+<p>Context is the key to effective threat assessment. Detection of an Evolving Threat introduces the concept of contextual awareness, which involves connecting ongoing threat activities to previously identified signals. This connection facilitates a more comprehensive understanding of the threat landscape. By linking current activities with historical signals, detection engineers and incident responders can discern patterns, uncover trends, and assess the potential evolution of threat actors&rsquo; methodologies.</p>
+<p>Detection engineers can employ the following strategies to implement Detection of an Evolving Threat effectively:</p>
+<p><strong>Historical Analysis: Building a Repository of Context</strong></p>
+<p>Maintaining a historical record forms the backbone of historical analysis in Detection of an Evolving Threat. This involves preserving signals and associated observables, such as actor, environment, and IP address, for reference and analysis. The historical context provides valuable insights into the evolution of threat actors&rsquo; tactics, allowing for a more informed assessment of current signals. This repository of context-rich data aids in pattern recognition, enabling detection engineers to identify recurrent threats, understand their evolution, and proactively identify emerging patterns.</p>
+<p><strong>Signal Correlation: Weaving a Coherent Narrative</strong></p>
+<p>One of the primary strategies in implementing Detection of an Evolving Threat is through signal correlation. This involves the development of algorithms and rules that can correlate and link related signals, creating a coherent timeline of suspicious activities. The goal is to move beyond individual signals and understand how they interconnect over time. By weaving these signals into a chronological narrative, detection engineers can gain insights into the progression of potential threats. This interconnected view enhances the ability to identify orchestrated attacks and discern patterns that might be obscured when examining signals in isolation.</p>
+<p><strong>Alert Prioritization: Strategic Ranking Along the Kill Chain</strong></p>
+<p>In the context of Detection of an Evolving Threat, prioritizing alerts takes into account their position within the kill chain and the progression of the threat. Not all alerts are equal; some might indicate early reconnaissance, while others signal advanced stages of an attack. By strategically ranking alerts based on their relevance to the kill chain, incident responders can focus their attention on the most critical threats. This prioritization ensures that resources are allocated judiciously, enhancing the overall responsiveness of the team.</p>
+<!-- **Security Baselines: Understanding Normal Behavior**
+Creating a baseline involves understanding normal behavior within a system or network, providing a benchmark against which current activities can be compared. This method enables detection engineers to identify anomalous activity effectively, as deviations from the established baseline can signal potential threats. By integrating security baselines into the detection strategy, we can enhance our ability to recognize evolving threats in their early stages. -->
+<p><strong>Machine Learning Integration: Automated Pattern Recognition</strong></p>
+<p>As threats evolve, so should our detection capabilities. Machine learning integration is a key strategy as it empower us to identify subtle patterns and threat progression autonomously. This ensures that our detections mechanisms are not static and adapts dynamically to emerging threats.</p>
+<h2 id="realizing-the-value-of-detection-of-evolving-threat">Realizing the Value of Detection of Evolving Threat</h2>
+<p>The efficacy of threat detection methodologies lies in their practical application. This section provides practical examples and case studies showcasing how we can successfully apply 2 of the previously mentioned strategies, Signal Correlation and Historical Analysis to identify and mitigate advanced threats.</p>
+<h3 id="signal-correlation-in-action">Signal Correlation in Action</h3>
+<p>The engagement with other departments that have in-depth knowledge of production systems, applications, and data is pivotal in developing the necessary understanding that bridges once-isolated signals. Threat intelligence information is also key to correlate individual signals with known threat actor profiles and their actions.</p>
+<p>Illustrating this approach, the rules &ldquo;Suspicious Activity in Atlassian Products&rdquo; and &ldquo;APT Related Activity in Atlassian Products&rdquo; ingeniously combine signals from distinct data sources – Confluence, Bitbucket, and Jira. This correlation is instrumental in identifying suspicious activities across this suite of products, creating a timeline of executed actions within different kill chain stages. The former rule leverages &ldquo;system&rdquo; to cluster signals based on observables. In the case of &ldquo;APT Related Activity in Atlassian Products,&rdquo; a threat actor profile, crafted from information gathered from threat intelligence, is employed to identify the actions of an APT group within Atlassian products. This rule combines signals from Confluence, Bitbucket, and Jira, offering a comprehensive view of the threat actor&rsquo;s maneuvers within this product suite.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">rule Suspicious Activity in Atlassian Products {</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">signals</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">system_1 = Jira</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">system_2 = Bitbucket</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">system_3 = Confluence</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">rule_1 = New Administrator</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">rule_2 = Secrets Search</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">rule_n = …</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">condition</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">of $system_* and 3 of $rule_*</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">rule APT Related Activity in Atlassian Products {</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">signals</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">rule_1 = Secrets Search</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">rule_2 = Anomalous Service Account Activity</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">rule_3 = New Administrator</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">rule_4 = Multiple Repositories Cloned or Archived by a Single Actor</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">rule_n = ...</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">condition</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">of them</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="mining-insights-from-the-past">Mining Insights from the Past</h3>
+<p>Work in historical analysis with detection rules such as &ldquo;Threat Found Through Historical Context&rdquo; tap into the wealth of information embedded in past security findings generated by SIEM rules. This method involves clustering information based on observables such as actors or environments, offering a retrospective lens into threat activities. What&rsquo;s more, this process isn&rsquo;t confined to a singular tool; it can extend its reach by incorporating security findings from various sources, including EDR, and security incidents reported by collaborators (SIRTs). The synergy of historical analysis and diverse data sources paints a comprehensive picture of threat evolution.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">rule Threat Found Through Historical Context {</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">signals</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">rule_1 = User&#39;s Multi-factor Authentication (MFA) Disabled</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">rule_2 = New Administrator</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">rule_n = …</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cluster</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">ip_address</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">user_name</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">condition</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">of them</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="challenges-and-considerations">Challenges and Considerations</h2>
+<p>As we delve into the realm of Detection of an Evolving Threat, it&rsquo;s crucial to acknowledge that the path to enhanced security is not without its hurdles. In this section, we unravel the intricacies and potential stumbling blocks that come with implementing this dynamic approach. Beyond the theoretical elegance of sequencing signals and tracking threats along the kill chain, practical challenges emerge, demanding thoughtful consideration and strategies for mitigation.
+Security findings that prove to be false positives can inadvertently inject inaccurate information into the implementation of Detection of an Evolving Threat. This not only undermines the reliability of the system but also demands robust mechanisms for identifying and filtering out false positives to maintain the effectiveness of the threat detection process.
+Moreover, the presence of distinct data source schemas and varied alert output schema poses a challenge. This diversity hampers the establishment of a common language for threat detection and investigation, exacerbating the complexity of clustering security findings. The absence of a standardized framework can impede the seamless integration of data sources that produce security findings, hindering the holistic view necessary for comprehensive threat assessment.
+Lastly, the challenge of fostering collaboration among diverse teams and ensuring effective communication between security, IT, and other relevant departments should not be underestimated. Developing a shared understanding of threat progression across different organizational units is integral to the success of Detection of an Evolving Threat. This requires robust communication channels, and relationships between security and other organizational areas.</p>
+<h2 id="conclusion-a-proactive-approach-to-threat-detection">Conclusion: A Proactive Approach to Threat Detection</h2>
+<p>In the rapidly evolving landscape of cybersecurity, where threats are dynamic and adversaries continually adapt their tactics, the conventional paradigm of threat detection may prove to be insufficient. This blog post introduces a methodology – &ldquo;Detection of an Evolving Threat&rdquo; – designed to identify and mitigate advanced threats by tracing their progression along the kill chain. The journey through this blog post has unfolded key principles and strategies that collectively mark a paradigm shift for threat detection. Detection of an Evolving Threat heralds a proactive shift in threat detection methodologies. By tracking threats along the kill chain, detection engineers can provide early, context-rich alerts, empowering organizations to respond effectively to advanced adversaries.</p>
 
           </div>
           <div class="row items-start justify-between">
@@ -1002,16 +896,16 @@ Make sure to configure Falco properly to ensure it captures the necessary system
                     <li class="inline-block">
                       <a
                         class="bg-theme-light hover:bg-primary dark:bg-darkmode-theme-light dark:hover:bg-darkmode-primary dark:hover:text-dark m-1 block rounded px-3 py-1 hover:text-white"
-                        href="/tags/linux/">
-                        Linux
+                        href="/tags/strategy/">
+                        Strategy
                       </a>
                     </li>
                   
                     <li class="inline-block">
                       <a
                         class="bg-theme-light hover:bg-primary dark:bg-darkmode-theme-light dark:hover:bg-darkmode-primary dark:hover:text-dark m-1 block rounded px-3 py-1 hover:text-white"
-                        href="/tags/core-dumps/">
-                        Core dumps
+                        href="/tags/fundamental-principles/">
+                        Fundamental principles
                       </a>
                     </li>
                   
@@ -1045,7 +939,7 @@ Make sure to configure Falco properly to ensure it captures the necessary system
   
     <a
       class="share-link share-facebook"
-      href="https://facebook.com/sharer/sharer.php?u=%2fblog%2flinux-core-dump%2f"
+      href="https://facebook.com/sharer/sharer.php?u=%2fblog%2fdetecting_threat_progression%2f"
       target="_blank"
       rel="noopener"
       aria-label="share facebook">
@@ -1063,7 +957,7 @@ Make sure to configure Falco properly to ensure it captures the necessary system
   
     <a
       class="share-link share-twitter"
-      href="https://twitter.com/intent/tweet/?text=Share&amp;url=%2fblog%2flinux-core-dump%2f"
+      href="https://twitter.com/intent/tweet/?text=Share&amp;url=%2fblog%2fdetecting_threat_progression%2f"
       target="_blank"
       rel="noopener"
       aria-label="share twitter">
@@ -1081,7 +975,7 @@ Make sure to configure Falco properly to ensure it captures the necessary system
   
     <a
       class="share-link share-email"
-      href="mailto:?subject=Share&amp;body=%2fblog%2flinux-core-dump%2f"
+      href="mailto:?subject=Share&amp;body=%2fblog%2fdetecting_threat_progression%2f"
       target="_self"
       rel="noopener"
       aria-label="share email">
@@ -1099,7 +993,7 @@ Make sure to configure Falco properly to ensure it captures the necessary system
   
     <a
       class="share-link share-reddit"
-      href="https://reddit.com/submit/?url=%2fblog%2flinux-core-dump%2f&amp;resubmit=true&amp;title=Share"
+      href="https://reddit.com/submit/?url=%2fblog%2fdetecting_threat_progression%2f&amp;resubmit=true&amp;title=Share"
       target="_blank"
       rel="noopener"
       aria-label="share reddit">
@@ -1564,31 +1458,31 @@ Make sure to configure Falco properly to ensure it captures the necessary system
         <picture>
           <source
             
-              srcset="/images/detecting_threat_progression/unified_kill_chain_hu339cdd9ab2052a2d5c43a6b82b9bf070_238340_545x0_resize_q80_h2_lanczos_3.webp"
+              srcset="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code_hu9009c3e40950ab36b989238b7140cc78_1190670_545x0_resize_q80_h2_lanczos.webp"
             
             media="(max-width: 575px)" />
           <source
             
-              srcset="/images/detecting_threat_progression/unified_kill_chain_hu339cdd9ab2052a2d5c43a6b82b9bf070_238340_600x0_resize_q80_h2_lanczos_3.webp"
+              srcset="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code_hu9009c3e40950ab36b989238b7140cc78_1190670_600x0_resize_q80_h2_lanczos.webp"
             
             media="(max-width: 767px)" />
           <source
             
-              srcset="/images/detecting_threat_progression/unified_kill_chain_hu339cdd9ab2052a2d5c43a6b82b9bf070_238340_700x0_resize_q80_h2_lanczos_3.webp"
+              srcset="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code_hu9009c3e40950ab36b989238b7140cc78_1190670_700x0_resize_q80_h2_lanczos.webp"
             
             media="(max-width: 991px)" />
           <source
             
-              srcset="/images/detecting_threat_progression/unified_kill_chain_hu339cdd9ab2052a2d5c43a6b82b9bf070_238340_1110x0_resize_q80_h2_lanczos_3.webp"
+              srcset="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code_hu9009c3e40950ab36b989238b7140cc78_1190670_1110x0_resize_q80_h2_lanczos.webp"
              />
           <img
             
               loading="lazy" decoding="async"
-              src="/images/detecting_threat_progression/unified_kill_chain_hu339cdd9ab2052a2d5c43a6b82b9bf070_238340_1110x0_resize_lanczos_3.png"
+              src="/images/linux-core-dump/password-with-hand-holding-tweezers-binary-code_hu9009c3e40950ab36b989238b7140cc78_1190670_1110x0_resize_q80_lanczos.jpg"
             class=" mb-6 w-full rounded img"
-            alt="Detecting Threat Progression"
-            width="4200"
-            height="1325" />
+            alt="Unveiling the Secrets of Linux Core Dumps"
+            width="1000"
+            height="667" />
         </picture>
       
       
@@ -1602,8 +1496,8 @@ Make sure to configure Falco properly to ensure it captures the necessary system
 
   
   <h4 class="mb-3">
-    <a href="/blog/detecting_threat_progression/">
-      Detecting Threat Progression
+    <a href="/blog/linux-core-dump/">
+      Unveiling the Secrets of Linux Core Dumps
     </a>
   </h4>
   
@@ -1626,8 +1520,8 @@ Make sure to configure Falco properly to ensure it captures the necessary system
       </li>
     </ul>
   
-  <p class="mb-6">The Need for Evolution in Threat Detection Cyber threats are not static; they evolve as threat actors adapt their strategies to bypass defenses.</p>
-  <a class="btn btn-outline-primary btn-sm" href="/blog/detecting_threat_progression/">
+  <p class="mb-6">Understanding Core Dumps: Analysis of their Purpose and Risks A Linux core dump, also known as a core dump file, is a file that captures the memory contents of a running process when it encounters a critical error or crashes.</p>
+  <a class="btn btn-outline-primary btn-sm" href="/blog/linux-core-dump/">
     Read More
   </a>
 </div>

@@ -6,8 +6,15 @@
     <description>Recent content in Security on ardroci</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Jun 2023 00:00:00 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jan 2024 00:00:00 -0500</lastBuildDate>
     <atom:link href="/categories/security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Detecting Threat Progression</title>
+      <link>/blog/detecting_threat_progression/</link>
+      <pubDate>Tue, 02 Jan 2024 00:00:00 -0500</pubDate>
+      <guid>/blog/detecting_threat_progression/</guid>
+      <description>The Need for Evolution in Threat Detection Cyber threats are not static; they evolve as threat actors adapt their strategies to bypass defenses.</description>
+    </item>
     <item>
       <title>Invisible Intruders - Unmasking the Stealthy World of Fileless Malware</title>
       <link>/blog/linux-fileless-malware/</link>
